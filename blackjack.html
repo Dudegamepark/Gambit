@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="gambit.css">
+  <script defer src="blackjack.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gambit: Blackjack</title>
+</head>
+<body>
+  <game-container class="game-container">
+    <!-- top bar -->
+    <hud-header class="hud-header">hud-header</hud-header>
+
+    <!-- sidebar + card table -->
+    <blackjack-container class="blackjack-container">
+      <!-- TODO: split further into game tracker numbers, boosts? etc... -->
+      <!--    at that time, move (/rename) the 'sbar' id to child element -->
+      <sidebar class="sidebar" id="sbar"></sidebar>
+      
+      <blackjack-board class="blackjack-board">
+
+        <button-panel class="button-panel">
+          <button class="blackjack-button">Help</button>
+          <button class="blackjack-button" onclick="game.playerMove('hit')">Hit</button>
+          <button class="blackjack-button" onclick="game.playerMove('stand')">Stand</button>
+          <button class="blackjack-button" onclick="game.playerMove('double')">Double</button>
+        </button-panel>
+
+        <house-hand class="house-hand" id="h-hand"></house-hand>
+
+        <player-hand class="player-hand" id="p-hand"></player-hand>
+
+      </blackjack-board>
+    </blackjack-container>
+
+  </game-container>
+</body>
+</html>
