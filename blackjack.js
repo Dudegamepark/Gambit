@@ -100,6 +100,10 @@ class Blackjack {
     this.house.reset();
     this.player.reset();
 
+    // Clear the card visuals from hands
+    document.getElementById("p-hand").replaceChildren();
+    document.getElementById("h-hand").replaceChildren();
+
     // Draw 2 cards for the house and player
     // Impossible to bust so no check included
     // Only need to compute earnings for player so the
@@ -269,12 +273,31 @@ class Blackjack {
   }
 
   // TODO: maintain as front-end is updated
-  // TODO: maybe don't use innerHTML? Feels a bit scuffed/dangerous somehow...
   // Displays game state values on front-end
   displayStats() {
     document.getElementById('sbar').innerHTML = `Total Earnings: ${this.playerTotalEarnings.toFixed(2)} (+${this.playerCurrentEarnings.toFixed(2)}) - Multiplier: ${this.playerBaseMult.toFixed(1)}`;
-    document.getElementById('p-hand').innerHTML = `${this.player.handToString()} - ${this.player.sum}`;
-    document.getElementById('h-hand').innerHTML = `${this.house.handToString()} - ${this.house.sum}`;
+
+    const pCardPaths = this.player.handToCards();
+    const pHandElem = document.getElementById("p-hand");
+
+    for (let i = pHandElem.childNodes.length; i < pCardPaths.length; i++) {
+      let cardImg = document.createElement("img");
+      cardImg.setAttribute("class", "player-card");
+      cardImg.setAttribute("src", pCardPaths[i]);
+      cardImg.setAttribute("height", "100%");
+      pHandElem.appendChild(cardImg);
+    }
+
+    const hCardPaths = this.house.handToCards();
+    const hHandElem = document.getElementById("h-hand");
+
+    for (let i = hHandElem.childNodes.length; i < hCardPaths.length; i++) {
+      let cardImg = document.createElement("img");
+      cardImg.setAttribute("class", "house-card");
+      cardImg.setAttribute("src", hCardPaths[i]);
+      cardImg.setAttribute("height", "100%");
+      hHandElem.appendChild(cardImg);
+    }
   }
 
   // Sanity check; rescores a hand (useful for items later)
@@ -339,6 +362,15 @@ class BlackjackPlayer {
       output.push(card.getRank());
     });
     return `[ ${output} ]`;
+  }
+
+  // Return: array of image file names corresponding to cards
+  handToCards() {
+    const output = [];
+    this.hand.forEach(card => {
+      output.push(`\\Assets\\Cards\\${card.getSuit()}\\${card.getSuit()}${card.getRank()}.png`);
+    });
+    return output;
   }
 }
 

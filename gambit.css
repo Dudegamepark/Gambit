@@ -86,3 +86,8 @@ body {
   border-style: solid;
   border-color: black;
 }
+
+/* inside player-hand */
+.player-card {
+  height: 100%;
+}
