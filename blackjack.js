@@ -169,9 +169,8 @@ class Blackjack {
 
   // Updates earnings/base multiplier based on final state; resets round afterward
   completeRound() {
-    if (this.player.checkBust() || this.house.sum > this.player.sum) {
+    if (this.player.checkBust()) {
       // Lose condition 1: player bust
-      // Lose condition 1: house sum is higher
       // baseMult = 1.0; round earnings = 0
       this.playerBaseMult = 1.0;
       console.log('You lose!');
@@ -200,6 +199,11 @@ class Blackjack {
       }
       console.log('You win!');
 
+    } else if (this.house.sum > this.player.sum) {
+      // Lose condition 2: house sum is higher
+      // baseMult = 1.0; round earnings = 0
+      this.playerBaseMult = 1.0;
+      console.log('You lose!');
     } else if (this.house.sum === this.player.sum) {
       // Tie condition: house and player sums are equal
       // baseMult is retained; add round earnings / 2 to total
