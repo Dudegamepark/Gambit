@@ -1,0 +1,31 @@
+body {
+    background-image: url(Gambit\Assets\Backgrounds\mainMenuBackground.png);
+}
+
+.logo-container {
+    border-style: none;
+    grid-row: span 1;
+    grid-column: 5;
+    background-image: url(Gambit\Assets\Logo\heartLogo.png);
+}
+
+.game-modes-container {
+    border-style: none;
+    grid-row: span 1;
+    grid-column: 5;
+}
+
+.stats-box {
+    background-color: darkgoldenrod;
+    border-style: solid;
+    border-color: black;
+}
+
+.game-button {
+    margin: 0.5rem;
+    height: 15%;
+    width: 70%;
+    background-color: darkgoldenrod;
+    border-style: solid;
+    border-color: black;
+}
