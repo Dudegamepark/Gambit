@@ -14,26 +14,34 @@
     }
     </style>
     <!--logo-->
-    <logo-container class="logo-container">
-        <img width="450" src="https://cdn.discordapp.com/attachments/1336144360781254794/1336144787903877130/pixil-frame-0_4.png?ex=67adf20d&is=67aca08d&hm=b92b2d61e4be44208d4c5b6533996d5ead01a56802c1b477f692980b95bd2f1d&">
-        <br>
-    </logo-container>
+    <div  style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+        <img width="400" src="https://cdn.discordapp.com/attachments/1336144360781254794/1336144787903877130/pixil-frame-0_4.png?ex=67adf20d&is=67aca08d&hm=b92b2d61e4be44208d4c5b6533996d5ead01a56802c1b477f692980b95bd2f1d&">
+    </div>
 
-    <!--game modes-->
-    <game-modes-container class="game-modes-container">
+    <!--game modes sign-->
+    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
         <img width="200" src="https://cdn.discordapp.com/attachments/1024890180890542081/1339319974413471825/gameModesSign.png?ex=67ae4a6d&is=67acf8ed&hm=a2d3eec3dcfa83712010f6bf0417873e58c09f8e294a07ae6b31e7373a357390&" width="300">
+    </div>
+
+    <!--game buttons-->
+    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+
+        <button style="font-family: 'Courier New', Courier, monospace; font-weight: bold;" class="game-button" onclick="location.href='blackjack.html'">
+            Blackjack
+        </button>
         <br>
-        <button class="game-button" onclick="location.href='blackjack.html'" >Blackjack</button>
-        <br>
-    </game-modes-container>
+    </div>
 
     <!--stats-->
-    <game-modes-container class="game-modes-container">
+    <!--TODO: add variable amounts to these boxes-->
+    <div  style="display: flex; flex-direction: row; align-items: center; justify-content: center; height: 100;">
         <stats-container class="stats-box">Money Won</stats-container>
         <stats-container class="stats-box">Days Left</stats-container>
-        <br>
+    </div>
+
+    <div  style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
         <stats-container class="stats-box">Suspicion</stats-container>
-    </game-modes-container>
+    </div>
 
 </body>
 </html>
