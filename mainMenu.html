@@ -8,19 +8,31 @@
     <title>Gambit: Main Menu</title>
 </head>
 <body>
+    <style>
+    body {
+      background-image: url('https://cdn.discordapp.com/attachments/1024890180890542081/1339319973889441813/mainMenuBackground.png?ex=67ae4a6d&is=67acf8ed&hm=46620890df03b3d03f7fea7b9b35752e284a6513e405e38dcf818da1cc7fbb06&');
+    }
+    </style>
     <!--logo-->
-    <logo-container class="logo-container"></logo-container>
+    <logo-container class="logo-container">
+        <img width="450" src="https://cdn.discordapp.com/attachments/1336144360781254794/1336144787903877130/pixil-frame-0_4.png?ex=67adf20d&is=67aca08d&hm=b92b2d61e4be44208d4c5b6533996d5ead01a56802c1b477f692980b95bd2f1d&">
+        <br>
+    </logo-container>
 
     <!--game modes-->
     <game-modes-container class="game-modes-container">
-        <button class="game-button" onclick="location.href='blackjack.html'">Blackjack</button>
+        <img width="200" src="https://cdn.discordapp.com/attachments/1024890180890542081/1339319974413471825/gameModesSign.png?ex=67ae4a6d&is=67acf8ed&hm=a2d3eec3dcfa83712010f6bf0417873e58c09f8e294a07ae6b31e7373a357390&" width="300">
+        <br>
+        <button class="game-button" onclick="location.href='blackjack.html'" >Blackjack</button>
+        <br>
     </game-modes-container>
 
     <!--stats-->
     <game-modes-container class="game-modes-container">
-        <stats-container class="stats-container">Money Won</stats-container>
-        <stats-container class="stats-container">Days Left</stats-container>
-        <stats-container class="stats-container">Suspicion</stats-container>
+        <stats-container class="stats-box">Money Won</stats-container>
+        <stats-container class="stats-box">Days Left</stats-container>
+        <br>
+        <stats-container class="stats-box">Suspicion</stats-container>
     </game-modes-container>
 
 </body>
