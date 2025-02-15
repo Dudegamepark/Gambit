@@ -1,22 +1,28 @@
 body {
-  background-color: '#F8F8F8';
+  /* background-color: #002810; */
 }
 
 /* 5x5 grid */
-.game-container {
+.game-container-blackjack {
+  position: absolute;
+  background-image: url('Assets/Backgrounds/blackjack_with_board.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 1280px;
+  height: 720px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(5, auto);
+  grid-template-rows: 152px repeat(4, auto);
+  row-gap: 25px;
   border-style: solid;
   border-color: black;
-  gap: 0.5rem;
-  height: 80vh;
-  min-height: 30rem;
-  width: 90vw;
-  min-width: 40rem;
 }
 
-/* 5x1 inside game-container */
+/* 5x1 inside game-container-blackjack */
 .hud-header {
   border-style: solid;
   border-color: black;
@@ -29,17 +35,38 @@ body {
   grid-column: span 5;
   grid-row: 2 / span 4;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: 320px repeat(4, auto);
+  grid-template-rows: repeat(5, auto);
+  padding-left: 40px;
+  padding-right: 35px;
+  column-gap: 15px;
   border-style: solid;
   border-color: black;
-  gap: 0.5rem;
 }
 
 /* 1x4 inside blackjack-container */
 .sidebar {
   grid-column: 1;
   grid-row: span 4;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 140px 140px 65px 65px;
+  border-style: solid;
+  border-color: black;
+}
+
+/* 1x2 inside sidebar */
+.scorebar {
+  grid-column: 1;
+  grid-row: span 2;
+  border-style: solid;
+  border-color: black;
+}
+
+/* 1x2 inside sidebar */
+.finalhands {
+  grid-column: 1;
+  grid-row: 3 / span 2;
   border-style: solid;
   border-color: black;
 }
@@ -49,14 +76,14 @@ body {
   grid-column: 2 / span 4;
   grid-row: span 4;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: 385px 385px repeat(2, auto);
+  grid-template-rows: 150px 150px repeat(2, auto);
   border-style: solid;
   border-color: black;
-  gap: 0.5rem;
+  column-gap: 30px;
 }
 
-/* 1x2 inside blackjack-board */
+/* 1x1 inside blackjack-board */
 .button-panel {
   grid-column: span 1;
   grid-row: span 2;
@@ -77,6 +104,9 @@ body {
   grid-row: span 2;
   border-style: solid;
   border-color: black;
+  height: 185px;
+  margin-right: 31px;
+  padding-top: 30px;
 }
 
 /* 4x2 inside blackjack-board */
@@ -85,9 +115,17 @@ body {
   grid-row: 3 / span 2;
   border-style: solid;
   border-color: black;
+  padding-left: 21px;
 }
 
 /* inside player-hand */
 .player-card {
-  height: 100%;
+  height: 205px;
+  margin-left: 25px;
+}
+
+/* inside house-hand */
+.house-card {
+  height: 120px;
+  margin-left: 19px;
 }

@@ -8,32 +8,35 @@
   <title>Gambit: Blackjack</title>
 </head>
 <body>
-  <game-container class="game-container">
+  <div class="game-container-blackjack">
     <!-- top bar -->
-    <hud-header class="hud-header">hud-header</hud-header>
+    <div class="hud-header">hud-header</div>
 
     <!-- sidebar + card table -->
     <blackjack-container class="blackjack-container">
       <!-- TODO: split further into game tracker numbers, boosts? etc... -->
       <!--    at that time, move (/rename) the 'sbar' id to child element -->
-      <sidebar class="sidebar" id="sbar"></sidebar>
+      <div class="sidebar">
+        <div class="scorebar" id="sbar"></div>
+        <div class="final-hands" id="fbar"></div>
+      </div>
       
-      <blackjack-board class="blackjack-board">
+      <div class="blackjack-board">
 
-        <button-panel class="button-panel">
+        <div class="button-panel">
           <button class="blackjack-button">Help</button>
           <button class="blackjack-button" onclick="game.playerMove('hit')">Hit</button>
-          <button class="blackjack-button" onclick="game.playerMove('stand')">Stand</button>
           <button class="blackjack-button" onclick="game.playerMove('double')">Double</button>
-        </button-panel>
+          <button class="blackjack-button" onclick="game.playerMove('stand')">Stand</button>
+        </div>
 
-        <house-hand class="house-hand" id="h-hand"></house-hand>
+        <div class="house-hand" id="h-hand"></div>
 
-        <player-hand class="player-hand" id="p-hand"></player-hand>
+        <div class="player-hand" id="p-hand"></div>
 
-      </blackjack-board>
-    </blackjack-container>
+      </div>
+    </div>
 
-  </game-container>
+  </div>
 </body>
 </html>

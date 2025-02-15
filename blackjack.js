@@ -82,8 +82,6 @@ class Blackjack {
     // Player entity
     this.player = new BlackjackPlayer();
 
-    console.log('constructor');
-
     // Additional player stats
     // TODO: No suspicion yet
     this.playerTotalEarnings = 0.0;
@@ -160,9 +158,7 @@ class Blackjack {
     }
 
     // TODO: Find a place to display the final hands information; maybe at the bottom of sidebar?
-    console.log("\nFinal Hands:");
-    console.log(`${this.player.handToString()} - ${this.player.sum}`);
-    console.log(`${this.house.handToString()} - ${this.house.sum}`);
+    document.getElementById('fbar').innerHTML = `Final Hands: </br> YOU: ${this.player.handToString()} - ${this.player.sum} </br> HOUSE: ${this.house.handToString()} - ${this.house.sum}`;
 
     this.completeRound();
 
