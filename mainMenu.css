@@ -21,6 +21,7 @@ body {
     background-color: #22B14C;
     border-style: solid;
     border-color: black;
+    border-radius: 8px;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     padding: 20px;
@@ -35,5 +36,33 @@ body {
     background-color: #FFC20E;
     border-style: solid;
     border-color: black;
+    border-radius: 8px;
     padding: 10px;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace; 
+    font-weight: bolder;
+    z-index: 0;
+    font-size: larger;
+    position: relative;
 }
+
+.game-button::after{
+    content:'';
+    background: linear-gradient( to right, #FFC20E, #eccf78);
+    height: 100%;
+    width: 0px;
+    border-radius: 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: 150ms ease-in-out;
+  }
+  
+  .game-button:hover::after {
+    width: 100%;
+  }
+  
+  .game-button:hover{
+    color: black;
+  }
