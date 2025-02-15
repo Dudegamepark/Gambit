@@ -151,7 +151,8 @@ body {
   border-color: black; */
   height: 185px;
   margin-right: 31px;
-  padding-top: 30px;
+  padding-top: 50px;
+  padding-left: 5px;
 }
 
 /* 4x2 inside blackjack-board */
