@@ -1,5 +1,5 @@
 body {
-    background-image: url(Gambit\Assets\Backgrounds\mainMenuBackground.png);
+    background-image: url('/Assets/Backgrounds/mainMenuBackground.png');
 }
 
 .logo-container {
@@ -48,7 +48,7 @@ body {
 
 .game-button::after{
     content:'';
-    background: linear-gradient( to right, #FFC20E, #eccf78);
+    background: linear-gradient( to right, #cb881d, #FFC20E);
     height: 100%;
     width: 0px;
     border-radius: 8px;
