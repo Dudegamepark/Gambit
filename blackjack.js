@@ -364,7 +364,7 @@ class BlackjackPlayer {
   handToCards() {
     const output = [];
     this.hand.forEach(card => {
-      output.push(`\\Assets\\Cards\\${card.getSuit()}\\${card.getSuit()}${card.getRank()}.png`);
+      output.push(`Assets\\Cards\\${card.getSuit()}\\${card.getSuit()}${card.getRank()}.png`);
     });
     return output;
   }
