@@ -21,8 +21,10 @@
                 src="Assets/NPCs/Stranger.png"
                 style="border: solid; border-width: 10px; border-color: black;">
                 
-        <p class="npc-dialog anim-typewriter" style="float: inline-start;">-This is dialog.</p>
-        <button class="stop-close" onclick="document.getElementById('strangerDialog2').style.display='block'">></button>
+        <p id="stranger1lines" class="npc-dialog anim-typewriter" style="float: inline-start;"></p>
+
+        <!-- TODO something is wrong here -->
+        <button class="stop-close" onclick="conversation.continue()">></button>
         
     </div>
 

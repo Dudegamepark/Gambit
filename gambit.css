@@ -262,7 +262,8 @@ body {
   font-size: 250%;
   color:#e5f9e3;
   position: relative;
-  width: 50px;
+  width: 200px;
+  height: 40px;
   margin: 0 auto;
   border-right: 2px solid rgba(255,255,255,.75);
   text-align: center;
