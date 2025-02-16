@@ -212,3 +212,77 @@ body {
 .back-button:hover{
   color: black;
 }
+
+.stop-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+}
+
+.stop-modal-content {
+  margin: 10% auto; /* 15% from the top and centered */
+  /* padding: 20px; */
+  width: 20%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.stop-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.stop-close:hover,
+.stop-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.npc-name {
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  font-size: 175%;
+  color:#e5f9e3;
+  max-width: fit-content; 
+  padding-right: 650px;
+}
+
+.npc-dialog {
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  font-size: 250%;
+  color:#e5f9e3;
+  position: relative;
+  width: 50px;
+  margin: 0 auto;
+  border-right: 2px solid rgba(255,255,255,.75);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(-50%); 
+  max-width: fit-content; 
+}
+
+/* NPC Text Animation */
+.anim-typewriter{
+  animation: typewriter 4s steps(44) 1s 1 normal both,
+             blinkTextCursor 500ms steps(44) infinite normal;
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 24em;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+}
+

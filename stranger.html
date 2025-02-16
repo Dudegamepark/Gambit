@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="gambit.css">
+    <script defer src="stranger.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gambit: Stranger Interaction 1</title>
+</head>
+<body>
+    <style>
+    body {
+        background-color: #171717;
+    }
+    </style>
+    <!--stranger-->
+    <div
+        style="padding-left:10%; display: flex; flex-direction: row; align-items: center; justify-content: center; height: 100;">
+            <img 
+                width='700' 
+                src="Assets/NPCs/Stranger.png"
+                style="border: solid; border-width: 10px; border-color: black;">
+                
+        <p class="npc-dialog anim-typewriter" style="float: inline-start;">-This is dialog.</p>
+        <button class="stop-close" onclick="document.getElementById('strangerDialog2').style.display='block'">></button>
+        
+    </div>
+
+    <!--dialog-->
+    <br>
+
+    <div
+        style="display: flex; flex-direction: row; align-items: center; justify-content: center; height: 100;">
+        <p class="npc-name">The Stranger</p>
+    </div>
+
+</body>
+</html>

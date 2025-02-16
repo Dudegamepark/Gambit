@@ -87,6 +87,7 @@ class Blackjack {
     this.playerTotalEarnings = 0.0;
     this.playerCurrentEarnings = 0.0;
     this.playerBaseMult = 1.0;
+    this.npcInteraction = false;
 
     this.resetRound();
   }
@@ -179,6 +180,12 @@ class Blackjack {
       // Win conditions: house bust or player sum is higher
       // baseMult increments; round earnings multiplied by base and added to total
       this.playerTotalEarnings += this.playerCurrentEarnings * this.playerBaseMult;
+      // if they have not interacted with the stranger
+      if (!this.npcInteraction) {
+        // npc box pops up
+        document.getElementById('id01').style.display='block';
+      }
+      this.npcInteraction = true;
       
       switch (this.player.sum) {
         case 21:
