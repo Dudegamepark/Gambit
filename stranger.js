@@ -31,6 +31,7 @@ class Dialog {
         if (this.line < this.lines.length) {
             document.getElementById('stranger1lines').innerHTML = this.getLine();
         } else {
+            location.href='mainmenu.html';
             console.log("Dialog end.");
         }
     }

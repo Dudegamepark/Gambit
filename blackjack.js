@@ -87,7 +87,7 @@ class Blackjack {
     this.playerTotalEarnings = 0.0;
     this.playerCurrentEarnings = 0.0;
     this.playerBaseMult = 1.0;
-    this.npcInteraction = false;
+    this.npcInteraction = false; //TODO this needs to be something inherited so that it doesn't make the player interact every time they win
 
     this.resetRound();
   }

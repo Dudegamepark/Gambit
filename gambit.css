@@ -22,6 +22,25 @@ body {
   border-color: black; */
 }
 
+.help-container-blackjack {
+  position: absolute;
+  background-image: url('Assets/Backgrounds/blackjackHelp.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 1353px;
+  height: 615px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  grid-template-rows: 152px repeat(4, auto);
+  row-gap: 25px;
+  /* border-style: solid;
+  border-color: black; */
+}
+
 /* 5x1 inside game-container-blackjack */
 .hud-header {
   /* border-style: solid;
@@ -259,10 +278,10 @@ body {
 .npc-dialog {
   font-family: 'Courier New', Courier, monospace; 
   font-weight: bolder;
-  font-size: 250%;
+  font-size: 20;
   color:#e5f9e3;
   position: relative;
-  width: 200px;
+  width: 700px;
   height: 40px;
   margin: 0 auto;
   border-right: 2px solid rgba(255,255,255,.75);
