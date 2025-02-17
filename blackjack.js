@@ -217,6 +217,12 @@ class Blackjack {
 
       this.playerTotalEarnings += (this.playerCurrentEarnings * this.playerBaseMult) / 2;
       console.log('You tied!');
+      // if they have not interacted with the stranger
+      if (!this.npcInteraction) {
+        // npc box pops up
+        document.getElementById('id01').style.display='block';
+      }
+      this.npcInteraction = true;
 
     } else {
       // Sanity case
