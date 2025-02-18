@@ -253,10 +253,16 @@ body {
 
 /* The Close Button */
 .stop-close {
-  color: #aaa;
+  color: #093516;
+  background-color: #FFC20E;
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
   float: right;
-  font-size: 28px;
+  font-size: 40px;
   font-weight: bold;
+  border: transparent;
+  width: 50px;
+  height: 50px;
 }
 
 .stop-close:hover,
