@@ -9,8 +9,9 @@ class Dialog {
             "-I’ll keep this short. I know what they did to your people.",
             "-Look. I know you have no reason to trust me, but I want to help you.",
             "-Take this.",
-            "-If you can cause a distraction from the outside, I’ll work from the inside.",
-            "-I’ll be watching your progress but I can’t protect you from everyone. Keep the suspicion against you low.",
+            "<img width='200px' height='400px' src='Assets/Cards/Items/PurpleChipCard.png' title='Cash this in for $1000 to use in the shop'></img>",
+            "-If you can cause a distraction from the outside, <br>I’ll work from the inside.",
+            "-I’ll be watching your progress but I can’t protect you from everyone. <br>Keep the suspicion against you low.",
             "-We’ll talk soon. I wish you luck."
         ];
 
