@@ -1,7 +1,7 @@
 function initialize() {
   // Default values; if player state hasn't been updated
   let totalEarnings = 0.0;
-  let days = 1;
+  let days = 30;
   let suspicion = 0;
 
   // Check for nonzero earnings value
@@ -20,7 +20,7 @@ function initialize() {
   }
 
   document.getElementById('money-won-box').innerHTML = `Money Won: <br> $${totalEarnings.toFixed(0)}/$10,000,000`;
-  document.getElementById('days-left-box').innerHTML = `Days Left: <br> ${days}/30`;
+  document.getElementById('days-left-box').innerHTML = `Days Left: <br> ${days}`;
   document.getElementById('suspicion-box').innerHTML = `Suspicion: <br> ${suspicion}/100`;
 }
 
