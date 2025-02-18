@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="gambit.css">
+    <script defer src="eod.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gambit: End of Day</title>
+</head>
+<body>
+    <div class="menu-container">
+        <!--alarm-->
+        <div  id="alarm"
+            style="display: flex; flex-direction: row; align-items: center; justify-content: center; padding-top: 100px;">
+        </div>
+
+        <!--game buttons-->
+        <div 
+            style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <!-- <button 
+                class="back-button" 
+                onclick="location.href='mainMenu.html'"
+                title="Click here to continue playing the current day">
+                    Back
+                </button> -->
+            <button 
+                id="endDayConfirm"
+                class="stop-close"
+                onclick="conversation.continue()"
+                title="Click here to end the current day">
+                    >
+            </button>
+            <br>
+        </div>
+    </div>
+</body>
+</html>

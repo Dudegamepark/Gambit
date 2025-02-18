@@ -73,3 +73,41 @@ body {
   .game-button:hover{
     color: black;
   }
+
+  .eod-button {
+    margin: 0.5rem;
+    height: 50%;
+    width: 50;
+    background-color: #0e7eff;
+    border-style: solid;
+    border-color: black;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace; 
+    font-weight: bolder;
+    z-index: 0;
+    font-size: larger;
+    position: relative;
+  }
+
+  .eod-button::after{
+    content:'';
+    background: linear-gradient( to right, #115099, #0e7eff);
+    height: 100%;
+    width: 0px;
+    border-radius: 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: 150ms ease-in-out;
+  }
+  
+  .eod-button:hover::after {
+    width: 100%;
+  }
+  
+  .eod-button:hover{
+    color: black;
+  }

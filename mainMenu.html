@@ -31,7 +31,8 @@
 
             <button 
                 class="game-button" 
-                onclick="location.href='blackjack.html'">
+                onclick="location.href='blackjack.html'"
+                title="Click here to play Blackjack">
                     Blackjack
             </button>
             <br>
@@ -40,15 +41,18 @@
         <!--stats-->
         <!--TODO: add variable amounts to these boxes-->
         <div  
-            style="display: flex; flex-direction: row; align-items: center; justify-content: center; height: 100;">
+            style="display: flex; flex-direction: row; height: 100; padding-left: 38.5%;">
             <stats-container 
                 style="text-align: center;" 
                 class="stats-box"
-                id="money-won-box"></stats-container>
+                id="money-won-box"
+                title="Total money won"></stats-container>
             <stats-container 
                 style="text-align: center;" 
                 class="stats-box"
-                id="days-left-box"></stats-container>
+                id="days-left-box"
+                title="Days left to play"></stats-container>
+            <button class="eod-button" onclick="location.href='eod.html'" title="Click here to end the current day.">End Day</button>
         </div>
         <br>
         <div  
@@ -56,7 +60,8 @@
             <stats-container 
                 style="text-align: center;" 
                 class="stats-box"
-                id="suspicion-box"></stats-container>
+                id="suspicion-box"
+                title="Current suspicion level"></stats-container>
         </div>
     </div>
 </body>
