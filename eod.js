@@ -2,6 +2,9 @@
 class Dialog {
     constructor() {
         this.line = 0;
+        if (!localStorage.getItem('days') || isNaN(Number(localStorage.getItem('days')))) {
+            localStorage.setItem('days', '30');
+        }
         this.currentDays = Number(localStorage.getItem('days'));
         
         this.lines = [
