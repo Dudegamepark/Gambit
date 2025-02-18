@@ -84,10 +84,22 @@ class Blackjack {
 
     // Additional player stats
     // TODO: No suspicion yet
-    this.playerTotalEarnings = 0.0;
     this.playerCurrentEarnings = 0.0;
-    this.playerBaseMult = 1.0;
-    this.npcInteraction = false; //TODO this needs to be something inherited so that it doesn't make the player interact every time they win
+
+    if (localStorage && localStorage.getItem('totalEarnings')) {
+      this.playerTotalEarnings = Number(localStorage.getItem('totalEarnings'));
+    } else {
+      this.playerTotalEarnings = 0.0;
+    }
+
+    if (localStorage && localStorage.getItem('blackjack')) {
+      const stats = JSON.parse(localStorage.getItem('blackjack'));
+      this.playerBaseMult = stats.multiplier;
+      this.strangerInteraction1 = stats.strangerInteraction1;
+    } else {
+      this.playerBaseMult = 1.0;
+      this.strangerInteraction1 = false;
+    }
 
     this.resetRound();
   }
@@ -181,11 +193,11 @@ class Blackjack {
       // baseMult increments; round earnings multiplied by base and added to total
       this.playerTotalEarnings += this.playerCurrentEarnings * this.playerBaseMult;
       // if they have not interacted with the stranger
-      if (!this.npcInteraction) {
+      if (!this.strangerInteraction1) {
         // npc box pops up
         document.getElementById('id01').style.display='block';
       }
-      this.npcInteraction = true;
+      this.strangerInteraction1 = true;
       
       switch (this.player.sum) {
         case 21:
@@ -218,11 +230,11 @@ class Blackjack {
       this.playerTotalEarnings += (this.playerCurrentEarnings * this.playerBaseMult) / 2;
       console.log('You tied!');
       // if they have not interacted with the stranger
-      if (!this.npcInteraction) {
+      if (!this.strangerInteraction1) {
         // npc box pops up
         document.getElementById('id01').style.display='block';
       }
-      this.npcInteraction = true;
+      this.strangerInteraction1 = true;
 
     } else {
       // Sanity case
@@ -231,6 +243,18 @@ class Blackjack {
 
     // General reset steps; everything has been incremented
     this.playerCurrentEarnings = 0;
+    this.updateLocalState();
+  }
+
+  // Update localStorage with player state information
+  updateLocalState() {
+    if (localStorage) {
+      localStorage.setItem('totalEarnings', String(this.playerTotalEarnings));
+      localStorage.setItem('blackjack', JSON.stringify({
+          "multiplier": this.playerBaseMult,
+          "strangerInteraction1": this.strangerInteraction1   
+      }));
+    }
   }
 
   // Prompts user for input and computes corresponding outcomes
@@ -284,7 +308,7 @@ class Blackjack {
   // TODO: maintain as front-end is updated
   // Displays game state values on front-end
   displayStats() {
-    document.getElementById('sbar').innerHTML = `Total Earnings: ${this.playerTotalEarnings.toFixed(2)} (+${this.playerCurrentEarnings.toFixed(2)}) - Multiplier: ${this.playerBaseMult.toFixed(1)}`;
+    document.getElementById('sbar').innerHTML = `Total Earnings: $${this.playerTotalEarnings.toFixed(2)} <br> Current Hand: (+$${this.playerCurrentEarnings.toFixed(2)}) <br> Multiplier: ${this.playerBaseMult.toFixed(1)}x`;
 
     const pCardPaths = this.player.handToCards();
     const pHandElem = document.getElementById("p-hand");
