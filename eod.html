@@ -17,6 +17,17 @@
     <title>Gambit: End of Day</title>
 </head>
 <body>
+    <script>
+        /**
+        *   The following event is sent when the page loads. You could
+        *   wrap the event in a JavaScript function so the event is
+        *   sent when the user performs some action.
+        */
+        gtag('event', 'eod_view', {
+          'app_name': 'gambit',
+          'screen_name': 'eod'
+        });
+      </script> 
     <div class="menu-container">
         <!--alarm-->
         <div  id="alarm"
