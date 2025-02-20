@@ -34,7 +34,7 @@ class Dialog {
         if (this.line < this.lines.length) {
             document.getElementById('ratman1lines').innerHTML = this.getLine();
         } else {
-            location.href='mainmenu.html';
+            location.href='mainMenu.html';
             console.log("Dialog end.");
         }
     }
