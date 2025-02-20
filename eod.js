@@ -28,6 +28,11 @@ class Dialog {
         this.line += 1;
         if (this.line < this.lines.length) {
             document.getElementById('alarm').innerHTML = this.getLine();
+        } else if (this.currentDays == 30) {
+            this.currentDays -= 1;
+            this.updateLocalStorage();
+            location.href='ratman.html';
+            console.log("Dialog end.");
         } else {
             this.currentDays -= 1;
             this.updateLocalStorage();
