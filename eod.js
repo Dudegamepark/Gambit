@@ -6,6 +6,7 @@ class Dialog {
             localStorage.setItem('days', '30');
         }
         this.currentDays = Number(localStorage.getItem('days'));
+        this.currentSus = Number(localStorage.getItem('suspicion'));
         
         this.lines = [
             "<img width='700px' height='380px' src='Assets/Transitions/eodAlarm1159.png' title='The time is 11:59 pm'></img>",
@@ -30,11 +31,13 @@ class Dialog {
             document.getElementById('alarm').innerHTML = this.getLine();
         } else if (this.currentDays == 30) {
             this.currentDays -= 1;
+            this.currentSus = 0;
             this.updateLocalStorage();
             location.href='ratman.html';
             console.log("Dialog end.");
         } else {
             this.currentDays -= 1;
+            this.currentSus = 0;
             this.updateLocalStorage();
             location.href='mainMenu.html';
             console.log("Dialog end.");
@@ -44,6 +47,7 @@ class Dialog {
     updateLocalStorage() {
         if (localStorage) {
             localStorage.setItem('days', String(this.currentDays));
+            localStorage.setItem('suspicion', String(this.currentSus));
         }
     }
 }
