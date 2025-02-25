@@ -21,7 +21,7 @@ function initialize() {
 
   document.getElementById('money-won-box').innerHTML = `Money Won: <br> $${totalEarnings.toFixed(0)}/$10,000,000`;
   document.getElementById('days-left-box').innerHTML = `Days Left: <br> ${days}`;
-  document.getElementById('suspicion-box').innerHTML = `Suspicion: <br> ${suspicion}/100`;
+  document.getElementById('suspicion-box').innerHTML = `Suspicion: <br> ${Math.floor(suspicion)}/100`;
 }
 
 initialize();

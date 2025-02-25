@@ -83,13 +83,18 @@ class Blackjack {
     this.player = new BlackjackPlayer();
 
     // Additional player stats
-    // TODO: No suspicion yet
     this.playerCurrentEarnings = 0.0;
 
     if (localStorage && localStorage.getItem('totalEarnings')) {
       this.playerTotalEarnings = Number(localStorage.getItem('totalEarnings'));
     } else {
       this.playerTotalEarnings = 0.0;
+    }
+
+    if (localStorage && localStorage.getItem('suspicion')) {
+      this.suspicion = Number(localStorage.getItem('suspicion'));
+    } else {
+      this.suspicion = 0.0;
     }
 
     if (localStorage && localStorage.getItem('blackjack')) {
@@ -122,10 +127,10 @@ class Blackjack {
     this.house.draw();
     this.house.draw();
 
-    // False to indicate that this draw is not a 'double' draw
     this.earn(this.player.draw());
     this.earn(this.player.draw());
 
+    this.updateLocalState();
     this.displayStats();
   }
 
@@ -157,6 +162,7 @@ class Blackjack {
       }
 
       this.playerCurrentEarnings += tempMult * (this.player.sum + card.getScore());
+      this.suspicion += 2.0;
     }
   }
 
@@ -171,11 +177,11 @@ class Blackjack {
     }
 
     // TODO: Find a place to display the final hands information; maybe at the bottom of sidebar?
-    document.getElementById('fbar').innerHTML = `Final Hands: </br> YOU: ${this.player.handToString()} - ${this.player.sum} </br> HOUSE: ${this.house.handToString()} - ${this.house.sum}`;
+    document.getElementById('fbar').innerHTML = `Final Hands: </br> YOU (${this.player.sum}): </br> ${this.player.handToString()} </br> </br> HOUSE (${this.house.sum}): </br>${this.house.handToString()}`;
 
     this.completeRound();
 
-    document.getElementById('sbar').innerHTML = `Total Earnings: ${this.playerTotalEarnings} (+${this.playerCurrentEarnings}) - Multiplier: ${this.playerBaseMult}`;
+    document.getElementById('sbar').innerHTML = `Total Earnings: ${this.playerTotalEarnings} (+${this.playerBaseMult * this.playerCurrentEarnings}) - Multiplier: ${this.playerBaseMult}`;
 
     this.resetRound();
   }
@@ -215,7 +221,10 @@ class Blackjack {
         case 17:
           this.playerBaseMult += 0.1;
           break;
-      }
+        }
+        
+      // Suspicion increments by money gained
+      this.suspicion += this.calcSus(this.playerCurrentEarnings * this.playerBaseMult);
       console.log('You win!');
 
     } else if (this.house.sum > this.player.sum) {
@@ -226,8 +235,10 @@ class Blackjack {
     } else if (this.house.sum === this.player.sum) {
       // Tie condition: house and player sums are equal
       // baseMult is retained; add round earnings / 2 to total
+      // Suspicion increments by money gained
 
       this.playerTotalEarnings += (this.playerCurrentEarnings * this.playerBaseMult) / 2;
+      this.suspicion += this.calcSus((this.playerCurrentEarnings * this.playerBaseMult) / 2);
       console.log('You tied!');
       // if they have not interacted with the stranger
       if (!this.strangerInteraction1) {
@@ -244,6 +255,20 @@ class Blackjack {
     // General reset steps; everything has been incremented
     this.playerCurrentEarnings = 0;
     this.updateLocalState();
+    console.log(localStorage.getItem('suspicion'));
+  }
+
+  // Calculate suspicion gained from earnings
+  // Method separated for ease of updating the math
+  // Input: earnings (e.g. for a round)
+  calcSus(earnings) {
+    let day = 1;
+    if (localStorage && localStorage.getItem('day')) {
+      day = localStorage.getItem('day');
+    }
+
+    // 1/50 x 1/[day]^2.275 suspicion gained per dollar
+    return earnings * ((1.0/50.0) * (1.0/(Math.pow((day * 1.0), 2.275))));
   }
 
   // Update localStorage with player state information
@@ -252,8 +277,9 @@ class Blackjack {
       localStorage.setItem('totalEarnings', String(this.playerTotalEarnings));
       localStorage.setItem('blackjack', JSON.stringify({
           "multiplier": this.playerBaseMult,
-          "strangerInteraction1": this.strangerInteraction1   
+          "strangerInteraction1": this.strangerInteraction1
       }));
+      localStorage.setItem('suspicion', String(this.suspicion));
     }
   }
 
@@ -288,11 +314,13 @@ class Blackjack {
     } else {
       this.displayStats();
     }
+
+    this.updateLocalState();
   }
 
   // Determines the next choice for house and executes it
   // Return: checkBust() result - i.e. true if house busts
-  houseMove() {
+  async houseMove() {
     // 'hit' while below 17 and losing; stand otherwise
     if (this.house.sum < 17 && this.house.sum < this.player.sum) {
       this.house.draw();
@@ -308,7 +336,7 @@ class Blackjack {
   // TODO: maintain as front-end is updated
   // Displays game state values on front-end
   displayStats() {
-    document.getElementById('sbar').innerHTML = `Total Earnings: $${this.playerTotalEarnings.toFixed(2)} <br> Current Hand: (+$${this.playerCurrentEarnings.toFixed(2)}) <br> Multiplier: ${this.playerBaseMult.toFixed(1)}x`;
+    document.getElementById('sbar').innerHTML = `Wallet: $${this.playerTotalEarnings.toFixed(2)} <br> Current Hand: <br> +($${this.playerCurrentEarnings.toFixed(2)} x ${this.playerBaseMult.toFixed(1)})`;
 
     const pCardPaths = this.player.handToCards();
     const pHandElem = document.getElementById("p-hand");
@@ -355,7 +383,7 @@ class BlackjackPlayer {
     this.hand = [];
     this.sum = 0;
     this.drawing = true;
-    this.drawing = false;
+    this.doubling = false;
   }
 
   // Resets deck; empties hand/resets sum
@@ -364,7 +392,6 @@ class BlackjackPlayer {
     this.hand = [];
     this.sum = 0;
     this.drawing = true;
-    this.doubling = false;
   }
 
   // Draws a card, adds to sum, and updates hand
