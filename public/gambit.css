@@ -1,0 +1,316 @@
+body {
+  background-color: #002810;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none;
+}
+
+/* 5x5 grid */
+.game-container-blackjack {
+  position: absolute;
+  background-image: url('Assets/Backgrounds/blackjack_with_board.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 1280px;
+  height: 720px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  grid-template-rows: 152px repeat(4, auto);
+  row-gap: 25px;
+  /* border-style: solid;
+  border-color: black; */
+}
+
+.help-container-blackjack {
+  position: absolute;
+  background-image: url('Assets/Backgrounds/blackjackHelp.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 1366px;
+  height: 769px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  grid-template-rows: 152px repeat(4, auto);
+  row-gap: 25px;
+  /* border-style: solid;
+  border-color: black; */
+}
+
+/* 5x1 inside game-container-blackjack */
+.hud-header {
+  /* border-style: solid;
+  border-color: black; */
+  grid-column: span 5;
+  grid-row: 1;
+}
+
+/* 5x4 inside game-container */
+.blackjack-container {
+  grid-column: span 5;
+  grid-row: 2 / span 4;
+  display: grid;
+  grid-template-columns: 320px repeat(4, auto);
+  grid-template-rows: repeat(5, auto);
+  padding-left: 40px;
+  padding-right: 35px;
+  column-gap: 15px;
+  /* border-style: solid;
+  border-color: black; */
+}
+
+/* 1x4 inside blackjack-container */
+.sidebar {
+  grid-column: 1;
+  grid-row: span 4;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 140px 140px 65px 65px;
+  /* border-style: solid;
+  border-color: black; */
+}
+
+/* 1x2 inside sidebar */
+.scorebar {
+  /* grid-column: 1;
+  grid-row: span 2; */
+  min-height: 90px;
+  max-width: 275px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  font-size: large;
+  color: #e5f9e3;
+  padding-top: 70px;
+  padding-left: 25px;
+  /* border-style: solid;
+  border-color: black; */
+}
+
+/* 1x2 inside sidebar */
+.final-hands {
+  grid-column: 1;
+  grid-row: 3 / span 2;
+  padding-left: 20px;
+  max-width: 275px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  font-size: 25px;
+  color: #e5f9e3;
+  /* border-style: solid;
+  border-color: black; */
+}
+
+/* 4x4 inside blackjack-container */
+.blackjack-board {
+  grid-column: 2 / span 4;
+  grid-row: span 4;
+  display: grid;
+  grid-template-columns: 385px 385px repeat(2, auto);
+  grid-template-rows: 150px 150px repeat(2, auto);
+  /* border-style: solid;
+  border-color: black; */
+  column-gap: 30px;
+}
+
+/* 1x1 inside blackjack-board */
+.button-panel {
+  grid-column: span 1;
+  grid-row: span 2;
+  /* border-style: solid;
+  border-color: black; */
+  text-align: center;
+}
+
+.blackjack-button {
+  margin: 0.5rem;
+  height: 15%;
+  width: 70%;
+  background-color: #1c893b;
+  border-style: solid;
+  border-radius: 8px;
+  border-color: black;
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  font-size: larger;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.blackjack-button::after{
+  content:'';
+  background: linear-gradient( to right, #093516, #1C893B);
+  height: 100%;
+  width: 0px;
+  border-radius: 6px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  transition: 150ms ease-in-out;
+}
+
+.blackjack-button:hover::after {
+  width: 100%;
+}
+
+.blackjack-button:hover{
+  color: black;
+}
+
+/* 3x2 inside blackjack-board */
+.house-hand {
+  grid-column: 2 / span 3;
+  grid-row: span 2;
+  /* border-style: solid;
+  border-color: black; */
+  height: 185px;
+  margin-right: 31px;
+  padding-top: 50px;
+  padding-left: 5px;
+}
+
+/* 4x2 inside blackjack-board */
+.player-hand {
+  grid-column: span 4;
+  grid-row: 3 / span 2;
+  /* border-style: solid;
+  border-color: black; */
+  padding-left: 21px;
+}
+
+/* inside player-hand */
+.player-card {
+  height: 205px;
+  margin-left: 25px;
+}
+
+/* inside house-hand */
+.house-card {
+  height: 120px;
+  margin-left: 19px;
+}
+
+.back-button {
+  margin: 0.5rem; 
+  height: 70px;
+  width: fit-content;
+  background-color: #C48037;
+  border-style: solid;
+  border-radius: 8px;
+  border-color: black;
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  font-size: larger;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.back-button::after{
+  content:'';
+  background: linear-gradient( to right, #885926, #C48037);
+  height: 100%;
+  width: 0px;
+  border-radius: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  transition: 150ms linear;
+}
+
+.back-button:hover::after {
+  width: 100%;
+}
+
+.back-button:hover{
+  color: black;
+}
+
+.stop-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+}
+
+.stop-modal-content {
+  margin: 10% auto; /* 15% from the top and centered */
+  /* padding: 20px; */
+  width: 20%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.stop-close {
+  color: #093516;
+  background-color: #FFC20E;
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  float: right;
+  font-size: 40px;
+  font-weight: bold;
+  border: transparent;
+  width: 50px;
+  height: 50px;
+}
+
+.stop-close:hover,
+.stop-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.npc-name {
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  font-size: 175%;
+  color:#e5f9e3;
+  max-width: fit-content; 
+  padding-right: 650px;
+}
+
+.npc-dialog {
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  font-size: 20;
+  color:#e5f9e3;
+  position: relative;
+  width: 700px;
+  margin: 0 auto;
+  /* border-right: 2px solid rgba(255,255,255,.75); */
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  /* transform: translateY(-50%);  */
+  max-width: fit-content; 
+}
+
+/* NPC Text Animation */
+.anim-typewriter{
+  animation: typewriter 4s steps(44) 1s 1 normal both,
+             /* blinkTextCursor 700ms steps(44) infinite normal; */
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 24em;}
+}
+/* @keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+} */
+

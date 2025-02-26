@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+            <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PRX4Y78RY"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-3PRX4Y78RY');
+        </script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="gambit.css">
+    <script defer src="ratman.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gambit: Rat Man Interaction 1</title>
+</head>
+<body>
+    <script>
+        /**
+        *   The following event is sent when the page loads. You could
+        *   wrap the event in a JavaScript function so the event is
+        *   sent when the user performs some action.
+        */
+        gtag('event', 'ratman_view', {
+          'app_name': 'gambit',
+          'screen_name': 'ratman_interaction'
+        });
+
+        gtag('event', 'Finished_Cutscene_2', {
+          'app_name': 'gambit',
+          'screen_name': 'ratman_interaction'
+        });
+      </script> 
+    <style>
+    body {
+        background-color: #171717;
+    }
+    </style>
+    <!--stranger-->
+    <div
+        style="padding-left:10%; display: flex; flex-direction: row; align-items: center; justify-content: center; height: 100;">
+            <img 
+                width='700' 
+                src="Assets/NPCs/RatMan.png"
+                style="border: solid; border-width: 10px; border-color: black;">
+                
+        <div id="ratman1lines" class="npc-dialog anim-typewriter" style="float: inline-start;"></div>        
+    </div>
+    <div style="padding-right: 350px;">
+        <button class="stop-close" onclick="conversation.continue()">></button>
+    </div>
+    
+
+    <!--dialog-->
+    <br>
+
+    <div
+        style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+        <p class="npc-name">Rat Man</p>
+    </div>
+
+</body>
+</html>
