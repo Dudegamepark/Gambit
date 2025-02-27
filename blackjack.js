@@ -225,6 +225,8 @@ class Blackjack {
         
       // Suspicion increments by money gained
       this.suspicion += this.calcSus(this.playerCurrentEarnings * this.playerBaseMult);
+      // TODO: check if suspicion is greater than 100
+      // if yes, change to game loss screen
       console.log('You win!');
 
     } else if (this.house.sum > this.player.sum) {
@@ -239,6 +241,8 @@ class Blackjack {
 
       this.playerTotalEarnings += (this.playerCurrentEarnings * this.playerBaseMult) / 2;
       this.suspicion += this.calcSus((this.playerCurrentEarnings * this.playerBaseMult) / 2);
+      // TODO: check if suspicion is greater than 100
+      // if yes, change to game loss screen
       console.log('You tied!');
       // if they have not interacted with the stranger
       if (!this.strangerInteraction1) {
