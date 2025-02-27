@@ -91,6 +91,12 @@ class Blackjack {
       this.playerTotalEarnings = 0.0;
     }
 
+    if (localStorage && localStorage.getItem('dailyEarnings')) {
+      this.playerDailyEarnings = Number(localStorage.getItem('dailyEarnings'));
+    } else {
+      this.playerDailyEarnings = 0.0;
+    }
+
     if (localStorage && localStorage.getItem('suspicion')) {
       this.suspicion = Number(localStorage.getItem('suspicion'));
     } else {
@@ -198,6 +204,7 @@ class Blackjack {
       // Win conditions: house bust or player sum is higher
       // baseMult increments; round earnings multiplied by base and added to total
       this.playerTotalEarnings += this.playerCurrentEarnings * this.playerBaseMult;
+      this.playerDailyEarnings += this.playerCurrentEarnings * this.playerBaseMult;
       // if they have not interacted with the stranger
       if (!this.strangerInteraction1) {
         // npc box pops up
@@ -240,6 +247,7 @@ class Blackjack {
       // Suspicion increments by money gained
 
       this.playerTotalEarnings += (this.playerCurrentEarnings * this.playerBaseMult) / 2;
+      this.playerDailyEarnings += (this.playerCurrentEarnings * this.playerBaseMult) / 2;
       this.suspicion += this.calcSus((this.playerCurrentEarnings * this.playerBaseMult) / 2);
       // TODO: check if suspicion is greater than 100
       // if yes, change to game loss screen
@@ -279,6 +287,7 @@ class Blackjack {
   updateLocalState() {
     if (localStorage) {
       localStorage.setItem('totalEarnings', String(this.playerTotalEarnings));
+      localStorage.setItem('dailyEarnings', String(this.playerDailyEarnings));
       localStorage.setItem('blackjack', JSON.stringify({
           "multiplier": this.playerBaseMult,
           "strangerInteraction1": this.strangerInteraction1
