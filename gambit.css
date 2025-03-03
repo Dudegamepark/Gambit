@@ -101,7 +101,7 @@ body {
   max-width: 275px;
   font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
-  font-size: 25px;
+  font-size: 15px;
   color: #e5f9e3;
   /* border-style: solid;
   border-color: black; */
@@ -175,8 +175,8 @@ body {
   border-color: black; */
   height: 185px;
   margin-right: 31px;
-  padding-top: 50px;
-  padding-left: 5px;
+  padding-top: 35px;
+  /* padding-left: 3px; */
 }
 
 /* 4x2 inside blackjack-board */
@@ -185,19 +185,20 @@ body {
   grid-row: 3 / span 2;
   /* border-style: solid;
   border-color: black; */
-  padding-left: 21px;
+  padding-left: 50px;
+  padding-top: 10px;
 }
 
 /* inside player-hand */
 .player-card {
-  height: 205px;
-  margin-left: 25px;
+  height: 150px;
+  margin-left: 14px;
 }
 
 /* inside house-hand */
 .house-card {
-  height: 120px;
-  margin-left: 19px;
+  height: 87px;
+  margin-left: 11px;
 }
 
 .back-button { 
