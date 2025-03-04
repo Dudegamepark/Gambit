@@ -121,6 +121,15 @@ body {
   column-gap: 30px;
 }
 
+.round-result {
+  grid-column: span 4;
+  color: white;
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  font-size: larger;
+  text-align: center;
+}
+
 /* 1x1 inside blackjack-board */
 .button-panel {
   grid-column: span 1;

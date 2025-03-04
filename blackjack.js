@@ -138,6 +138,7 @@ class Blackjack {
 
     this.updateLocalState();
     this.displayStats();
+    document.getElementById('r-result').innerHTML = '';
   }
 
   // Updates player score and multiplier based on a card
@@ -182,14 +183,19 @@ class Blackjack {
       }
     }
 
+    this.displayStats();
+    
     // TODO: Find a place to display the final hands information; maybe at the bottom of sidebar?
     document.getElementById('fbar').innerHTML = `Final Hands: </br> YOU (${this.player.sum}): </br> ${this.player.handToString()} </br> </br> HOUSE (${this.house.sum}): </br>${this.house.handToString()}`;
-
+    
     this.completeRound();
 
-    document.getElementById('sbar').innerHTML = `Total Earnings: ${this.playerTotalEarnings} (+${this.playerBaseMult * this.playerCurrentEarnings}) - Multiplier: ${this.playerBaseMult}`;
+    setTimeout(() => {
 
-    this.resetRound();
+      document.getElementById('sbar').innerHTML = `Total Earnings: ${this.playerTotalEarnings} (+${this.playerBaseMult * this.playerCurrentEarnings}) - Multiplier: ${this.playerBaseMult}`;
+
+      this.resetRound();
+    }, 2000);
   }
 
   // Updates earnings/base multiplier based on final state; resets round afterward
@@ -198,7 +204,7 @@ class Blackjack {
       // Lose condition 1: player bust
       // baseMult = 1.0; round earnings = 0
       this.playerBaseMult = 1.0;
-      console.log('You lose!');
+      document.getElementById('r-result').innerHTML = 'You lose!';
 
     } else if (this.house.checkBust() || this.player.sum > this.house.sum) {
       // Win conditions: house bust or player sum is higher
@@ -234,13 +240,13 @@ class Blackjack {
       this.suspicion += this.calcSus(this.playerCurrentEarnings * this.playerBaseMult);
       // TODO: check if suspicion is greater than 100
       // if yes, change to game loss screen
-      console.log('You win!');
+      document.getElementById('r-result').innerHTML = 'You win!';
 
     } else if (this.house.sum > this.player.sum) {
       // Lose condition 2: house sum is higher
       // baseMult = 1.0; round earnings = 0
       this.playerBaseMult = 1.0;
-      console.log('You lose!');
+      document.getElementById('r-result').innerHTML = 'You lose!';
     } else if (this.house.sum === this.player.sum) {
       // Tie condition: house and player sums are equal
       // baseMult is retained; add round earnings / 2 to total
@@ -251,7 +257,7 @@ class Blackjack {
       this.suspicion += this.calcSus((this.playerCurrentEarnings * this.playerBaseMult) / 2);
       // TODO: check if suspicion is greater than 100
       // if yes, change to game loss screen
-      console.log('You tied!');
+      document.getElementById('r-result').innerHTML = 'You tied!';
       // if they have not interacted with the stranger
       if (!this.strangerInteraction1) {
         // npc box pops up
@@ -267,7 +273,6 @@ class Blackjack {
     // General reset steps; everything has been incremented
     this.playerCurrentEarnings = 0;
     this.updateLocalState();
-    console.log(localStorage.getItem('suspicion'));
   }
 
   // Calculate suspicion gained from earnings
