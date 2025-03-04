@@ -190,12 +190,22 @@ class Blackjack {
     
     this.completeRound();
 
+    this.disableButtons();
+    
     setTimeout(() => {
-
       document.getElementById('sbar').innerHTML = `Total Earnings: ${this.playerTotalEarnings} (+${this.playerBaseMult * this.playerCurrentEarnings}) - Multiplier: ${this.playerBaseMult}`;
-
+      
       this.resetRound();
+      this.enableButtons();
     }, 2000);
+  }
+
+  disableButtons() {
+    document.getElementById('gc-blackjack').style.setProperty('pointer-events', 'none');
+  }
+  
+  enableButtons() {
+    document.getElementById('gc-blackjack').style.setProperty('pointer-events', 'auto');
   }
 
   // Updates earnings/base multiplier based on final state; resets round afterward
