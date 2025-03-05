@@ -246,7 +246,7 @@ body {
   color: black;
 }
 
-.stop-modal {
+.modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -259,7 +259,7 @@ body {
   background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
 }
 
-.stop-modal-content {
+.modal-content {
   margin: 10% auto; /* 15% from the top and centered */
   /* padding: 20px; */
   width: 20%; /* Could be more or less, depending on screen size */

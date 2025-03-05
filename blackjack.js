@@ -250,6 +250,10 @@ class Blackjack {
       this.suspicion += this.calcSus(this.playerCurrentEarnings * this.playerBaseMult);
       // TODO: check if suspicion is greater than 100
       // if yes, change to game loss screen
+      if (this.checkSus()) {
+        document.getElementById('id02').style.display='block';
+        // console.log("I'm stuck! Pls help me");
+      }
       document.getElementById('r-result').innerHTML = 'You win!';
 
     } else if (this.house.sum > this.player.sum) {
@@ -283,6 +287,11 @@ class Blackjack {
     // General reset steps; everything has been incremented
     this.playerCurrentEarnings = 0;
     this.updateLocalState();
+  }
+
+  // Check if the player has maxxed out suspicion
+  checkSus() {
+    return this.suspicion > 99;
   }
 
   // Calculate suspicion gained from earnings
