@@ -21,17 +21,36 @@
     <!-- End Google Tag Manager (noscript) -->
     <style>
     body {
-        background-color: #171717;
+        background-color: black;
     }
     </style>
     
     <div>
         <img
-            width='500'
+            style="
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5%;
+            width: 50%"
             src="Assets/Backgrounds/GameOver.png">
     </div>
-    <div>
-        <button class="stop-close" onclick="gameReset.continue()">Try Again</button>
+    <div style="
+        display: flex; 
+        flex-direction: row; 
+        align-items: center; 
+        justify-content: center;">
+        <button 
+            style="
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width:fit-content;
+            height:fit-content"
+            class="stop-close" 
+            onclick="gameReset.continue()">
+            Try Again
+        </button>
     </div>
 
 </body>
