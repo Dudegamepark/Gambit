@@ -5,13 +5,13 @@ body {
     user-select: none;
 }
 
-.menu-container {
+/* .menu-container {
     background-image: url('Assets/Backgrounds/mainMenuBackground.png');
     background-repeat: no-repeat;
     background-size: contain;
     height: 98vh;
     width: 98vw;
-}
+} */
 
 .logo-container {
     display: block;
