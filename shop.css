@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Gamer';
-  src: url(Fonts/Gamer.ttf);
+  src: url(Assets/Fonts/Gamer.ttf);
 }
 
 body {
@@ -64,7 +64,9 @@ body {
     font-family: 'Gamer', monospace;
     font-size: 70px;
     text-align: center;
-    margin-left: 3.25%;
+    margin-left: 3%;
+    border-width: 5px 5px 0px 5px;
+    border-style: solid;
 }
 
 .storetabs .label #cardtab {
@@ -78,6 +80,9 @@ body {
     display: none;
     height: 500px;
     border-radius: 0px 0px 10px 10px;
+    border-color: black;
+    border-width: 0px 7px 7px 7px;
+    border-style: solid;
 }
 
 .storetabs input[type='radio']:checked + label + .tab {
