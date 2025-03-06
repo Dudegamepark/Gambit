@@ -252,8 +252,11 @@ class Blackjack {
       // if yes, change to game loss screen
       if (this.checkSus()) {
         document.getElementById('id02').style.display='block';
-        // console.log("I'm stuck! Pls help me");
       }
+      if (this.checkWin()) {
+        document.getElementById('id03').style.display='block';
+      }
+
       document.getElementById('r-result').innerHTML = 'You win!';
 
     } else if (this.house.sum > this.player.sum) {
@@ -292,6 +295,11 @@ class Blackjack {
   // Check if the player has maxxed out suspicion
   checkSus() {
     return this.suspicion > 99;
+  }
+
+  // Check if the player has won the game
+  checkWin() {
+    return this.playerTotalEarnings > 999999;
   }
 
   // Calculate suspicion gained from earnings
