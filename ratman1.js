@@ -22,22 +22,6 @@ class Dialog {
                 "-You'll see me tomorrow and I will definitely have your money!"
             ];
             console.log("dialog 1");
-        } else if (this.currentDays == 28) {
-            this.lines = [
-                "-Hey! Hey you! Wait!",
-                "-I came back, just like I promised!",
-                "-What? Why are you looking at me like that?",
-                "-Oh. You thought I was never coming back...",
-                "-...well, I did!<br>And I doubled your money!",
-                "-No strings attached, all for you.<br>Just like I said.",
-                "-Ok actually. There is one string attached...",
-                "-I want to keep working with you. We make a good team!",
-                "-You fund me, and I'll give you a portion of my earnings.",
-                "The Casino will never suspect a thing!",
-                "-What do you say?",
-                // "<div  style='display: flex; flex-direction: row; align-items: center; justify-content: center;'>   <button class='eod-button'' title='Click here to continue working with Rat Man.'>Continue working with Rat Man</button><button class='eod-button'' title='Click here to stop working with Rat Man.'>Stop working with Rat Man</button></div>"
-            ];
-            console.log("dialog 2");
         } else {
             console.log(this.currentDays);
         }

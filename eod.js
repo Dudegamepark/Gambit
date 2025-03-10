@@ -10,6 +10,7 @@ class Dialog {
         this.currentSus = Number(localStorage.getItem('suspicion'));
         this.dailyEarnings = Number(localStorage.getItem('dailyEarnings'));
         this.totalEarnings = Number(localStorage.getItem('totalEarnings'));
+        this.holdVar = Number(localStorage.getItem('holdVar'));
         
         // Favor will adapt and scale earnings on subsequent day
         // If we don't already have a value for it, we default to 1.0x
@@ -67,24 +68,26 @@ class Dialog {
         } else if (this.currentDays == 30) {
             this.currentDays -= 1;
             this.currentSus = 0;
-            // update money to 0 because ratman stole your wallet
-            // store double that money amount in a local var
+            // store double your wallet amount in a local var
+            localStorage.setItem('holdVar', String(this.totalEarnings*2));
+            // TODO: update money to 0 because ratman stole your wallet
+            // localStorage.setItem('totalEarnings', String(0));
+            // localStorage.setItem('dailyEarnings', String(0));
             // to return on day 2
             this.updateLocalStorage();
-            location.href='ratman.html';
+            location.href='ratman1.html';
             console.log("Dialog end.");
-        // } else if (this.currentDays == 29) {
-        //     this.currentDays -= 1;
-        //     this.currentSus = 0;
-        //     // update money to current money plus stored val from day 1
-        //     this.updateLocalStorage();
-        //     location.href='ratman.html';
-        //     console.log("Dialog end.");
+        } else if (this.currentDays == 29) {
+            this.currentDays -= 1;
+            this.currentSus = 0;
+            this.updateLocalStorage();
+            location.href='ratman2.html';
+            console.log("Dialog end.");
         } else if (this.currentDays == 28) {
             this.currentDays -= 1;
             this.currentSus = 0;
             this.updateLocalStorage();
-            location.href='pokerpaul.html';
+            location.href='pokerpaul1.html';
             console.log("Dialog end.");
         } else {
             this.currentDays -= 1;
