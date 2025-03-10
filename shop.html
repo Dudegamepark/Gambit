@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5FN6D774');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="shop.css">
+    <script defer src="shop.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gambit: Shop</title>
+</head>
+<body>
+    <div class="store-container">
+        <div style="display: flex; flex-direction: row;  align-items: center; justify-content: left;">
+            <button class="back-button" onclick="location.href='mainMenu.html'">Back</button>
+            <stats-container 
+                style="text-align: center;" 
+                class="stats-box"
+                id="money-won-box"
+                title="Total money won"></stats-container>
+          </div>
+        <br>
+        <div class="storetabs">
+            <input type="radio" id="cardtab" name="storetabs" checked="checked">
+            <label for="cardtab" style="color:#9b0905; background:#000000; border-color: #9b0905 #9b0905 black #9b0905">Cards</label>
+            <div class="tab" style="background:#000000; border-color: #9b0905">
+                <div class="item-container">
+                    <img src="Assets/Cards/Items/lowCard.png" id="powerup" style="height:100%">
+                </div>
+            </div>
+            <input type="radio" id="disguisetab" name="storetabs" checked="checked">
+            <label for="disguisetab" style="color:#b58a06; background:#002810; border-color: #b58a06">disguises</label>
+            <div class="tab" style="background:#002810; border-color: #b58a06">
+                <div class="item-container">
+                    <img src="Assets/Cards/Items/tearAwayTux.png" id="powerup" style="height:100%">
+                </div>
+            </div>
+            <input type="radio" id="dicetab" name="storetabs" checked="checked">
+            <label for="dicetab" style="color:#000000; background:#e1e1e1; border-color: black">dices</label>
+            <div class="tab" style="background:#e1e1e1; border-color: black">
+                <div class="item-container">
+                    <img src="Assets/Cards/Items/weightedDie.png" id="powerup" style="height:100%">
+                </div>
+            </div>
+            <input type="radio" id="upgradtab" name="storetabs" checked="checked">
+            <label for="upgradtab" style="color:#c6c8c7; background:#5a1c94; border-color: #c6c8c7;">upgrades</label>
+            <div class="tab" style="background:#5a1c94; border-color: #c6c8c7;">
+                <div class="item-container">
+                    <img src="Assets/Cards/Items/aceUpYourSleeve.png" id="powerup" style="height:100%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FN6D774"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
