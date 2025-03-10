@@ -25,3 +25,16 @@ function initialize() {
 }
 
 initialize();
+
+const audio = document.getElementById('background-music');
+const muteButton = document.getElementById('mute-button');
+
+muteButton.addEventListener('click', () => {
+  if (audio.muted) {
+    audio.muted = false;
+    muteButton.src = "Assets/Music/music_playing.png";
+  } else {
+    audio.muted = true;
+    muteButton.src = "Assets/Music/music_muted.png";
+  }
+});
