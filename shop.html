@@ -30,28 +30,67 @@
             <label for="cardtab" style="color:#9b0905; background:#000000; border-color: #9b0905 #9b0905 black #9b0905">Cards</label>
             <div class="tab" style="background:#000000; border-color: #9b0905">
                 <div class="item-container">
-                    <img src="Assets/Cards/Items/lowCard.png" id="powerup" style="height:100%">
+                    <div class="popup" id="card-popup">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <h1>Ace Up Your Sleeve $50</h1>
+                            <p>Replace any card in your hand at any time in any game with an ace
+                                <br> use of ace up your sleeve x 1: +10 suspicion
+                                <br> use of ace up your sleeve x 2: +30 suspicion
+                                <br> use of ace up your sleeve x 3: +50 suspicion
+                                <br> use of ace up your sleeve x 4: +70 suspicion
+                            </p>
+                            <button class="close-button" onclick="closePopup()">Close</button>
+                        </div>
+                    </div>
+                    <img src="Assets/Cards/Items/aceUpYourSleeve.png" id="cardpowerup" style="height:100%">
                 </div>
             </div>
             <input type="radio" id="disguisetab" name="storetabs" checked="checked">
             <label for="disguisetab" style="color:#b58a06; background:#002810; border-color: #b58a06">disguises</label>
             <div class="tab" style="background:#002810; border-color: #b58a06">
                 <div class="item-container">
-                    <img src="Assets/Cards/Items/tearAwayTux.png" id="powerup" style="height:100%">
+                    <div class="popup" id="tux-popup">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <h1>Tear Away Tux: $3000</h1>
+                            <p> resets Suspicion meter to 50% the first time it rises above 100% and is consumed in the process</p>
+                            <button class="close-button" onclick="closePopup()">Close</button>
+                        </div>
+                    </div>
+                    <img src="Assets/Cards/Items/tearAwayTux.png" id="tuxpowerup" style="height:100%">
                 </div>
             </div>
             <input type="radio" id="dicetab" name="storetabs" checked="checked">
             <label for="dicetab" style="color:#000000; background:#e1e1e1; border-color: black">dices</label>
             <div class="tab" style="background:#e1e1e1; border-color: black">
                 <div class="item-container">
-                    <img src="Assets/Cards/Items/weightedDie.png" id="powerup" style="height:100%">
+                    <div class="popup" id="dice-popup">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <h1>Weighted Die: $50</h1>
+                            <p>Choose the outcome of any die at any time.
+                                <br>Con: +30 suspicion when used</p>
+                            <button class="close-button" onclick="closePopup()">Close</button>
+                        </div>
+                    </div>
+                    <img src="Assets/Cards/Items/weightedDie.png" id="dicepowerup" style="height:100%">
                 </div>
             </div>
             <input type="radio" id="upgradtab" name="storetabs" checked="checked">
             <label for="upgradtab" style="color:#c6c8c7; background:#5a1c94; border-color: #c6c8c7;">upgrades</label>
             <div class="tab" style="background:#5a1c94; border-color: #c6c8c7;">
                 <div class="item-container">
-                    <img src="Assets/Cards/Items/aceUpYourSleeve.png" id="powerup" style="height:100%">
+                    <div class="popup" id="upgrade-popup">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <h1>Low Card: $600</h1>
+                            <p>Submitting a High Card hand reduces Suspicion by -5 (to a maximum of -10 per game and -50 per day). 
+                                <br> Submitted hands still gain Suspicion regularly in all other respects</p>
+                            <button class="close-button" onclick="closePopup()">Close</button>
+                        </div>
+                    </div>
+                    <img src="Assets/Cards/Items/lowCard.png" id="lcpowerup" style="height:100%">
                 </div>
             </div>
         </div>
