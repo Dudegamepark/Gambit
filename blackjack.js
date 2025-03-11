@@ -360,31 +360,6 @@ class Blackjack {
             cardImg.setAttribute("src", itemPaths[i]);
             cardImg.setAttribute("onClick", "console.log('WOOHOO')");
             inventElem.appendChild(cardImg);
-            let cardImg2test = document.createElement("img");
-            cardImg2test.setAttribute("style", "width: 20%; margin: 1rem;");
-            cardImg2test.setAttribute("src", itemPaths[i]);
-            cardImg2test.setAttribute("onClick", "console.log('WOOHOO')");
-            inventElem.appendChild(cardImg2test);
-            let cardImg3test = document.createElement("img");
-            cardImg3test.setAttribute("style", "width: 20%; margin: 1rem;");
-            cardImg3test.setAttribute("src", itemPaths[i]);
-            cardImg3test.setAttribute("onClick", "console.log('WOOHOO')");
-            inventElem.appendChild(cardImg3test);
-            let cardImg4test = document.createElement("img");
-            cardImg4test.setAttribute("style", "width: 20%; margin: 1rem;");
-            cardImg4test.setAttribute("src", itemPaths[i]);
-            cardImg4test.setAttribute("onClick", "console.log('WOOHOO')");
-            inventElem.appendChild(cardImg4test);
-            let cardImg5test = document.createElement("img");
-            cardImg5test.setAttribute("style", "width: 20%; margin: 1rem;");
-            cardImg5test.setAttribute("src", itemPaths[i]);
-            cardImg5test.setAttribute("onClick", "console.log('WOOHOO')");
-            inventElem.appendChild(cardImg5test);
-            let cardImg6test = document.createElement("img");
-            cardImg6test.setAttribute("style", "width: 20%; margin: 1rem;");
-            cardImg6test.setAttribute("src", itemPaths[i]);
-            cardImg6test.setAttribute("onClick", "console.log('WOOHOO')");
-            inventElem.appendChild(cardImg6test);
           }
         } else {
           inventElem.innerHTML = "Your inventory is empty.";
