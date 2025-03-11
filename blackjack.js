@@ -302,6 +302,99 @@ class Blackjack {
     return this.playerTotalEarnings > 999999;
   }
 
+  toggleInventory () {
+    const inventory = document.getElementById('invent-contain');
+    const exitButton = document.getElementById('invent-exit-button');
+
+    if (exitButton.style.display === "none") {
+      exitButton.style.display = "block";
+    } else {
+      exitButton.style.display = "none";
+    }
+
+    if (inventory.style.display === "none") {
+      inventory.style.display = "block";
+
+      this.populateInventory();
+    } else {
+      inventory.style.display = "none";
+      this.depopulateInventory();
+    }
+  }
+
+  depopulateInventory() {
+    const inventChildren = document.getElementById("invent-contain").children;
+    let inventElem = null;
+    for (const child of inventChildren) {
+      if (child.id === "inventory-main") {
+        inventElem = child;
+      }
+    }
+    inventElem.innerHTML = "";
+  }
+
+  populateInventory() {
+    if (localStorage) {
+      if (localStorage.getItem("items")) {
+        const itemDirectory = JSON.parse(localStorage.getItem("items"));
+        let itemPaths = [];
+  
+        const inventChildren = document.getElementById("invent-contain").children;
+        let inventElem = null;
+        for (const child of inventChildren) {
+          if (child.id === "inventory-main") {
+            inventElem = child;
+          }
+        }
+
+        const items = Object.keys(itemDirectory);
+  
+        items.forEach(name => {
+          itemPaths.push(`Assets\\Cards\\Items\\${name}.png`);
+        });
+
+        if (itemPaths.length !== 0) {
+          for (let i = 0; i < items.length; i++) {
+            let cardImg = document.createElement("img");
+            cardImg.setAttribute("style", "width: 20%; margin: 1rem;");
+            cardImg.setAttribute("src", itemPaths[i]);
+            cardImg.setAttribute("onClick", "console.log('WOOHOO')");
+            inventElem.appendChild(cardImg);
+            let cardImg2test = document.createElement("img");
+            cardImg2test.setAttribute("style", "width: 20%; margin: 1rem;");
+            cardImg2test.setAttribute("src", itemPaths[i]);
+            cardImg2test.setAttribute("onClick", "console.log('WOOHOO')");
+            inventElem.appendChild(cardImg2test);
+            let cardImg3test = document.createElement("img");
+            cardImg3test.setAttribute("style", "width: 20%; margin: 1rem;");
+            cardImg3test.setAttribute("src", itemPaths[i]);
+            cardImg3test.setAttribute("onClick", "console.log('WOOHOO')");
+            inventElem.appendChild(cardImg3test);
+            let cardImg4test = document.createElement("img");
+            cardImg4test.setAttribute("style", "width: 20%; margin: 1rem;");
+            cardImg4test.setAttribute("src", itemPaths[i]);
+            cardImg4test.setAttribute("onClick", "console.log('WOOHOO')");
+            inventElem.appendChild(cardImg4test);
+            let cardImg5test = document.createElement("img");
+            cardImg5test.setAttribute("style", "width: 20%; margin: 1rem;");
+            cardImg5test.setAttribute("src", itemPaths[i]);
+            cardImg5test.setAttribute("onClick", "console.log('WOOHOO')");
+            inventElem.appendChild(cardImg5test);
+            let cardImg6test = document.createElement("img");
+            cardImg6test.setAttribute("style", "width: 20%; margin: 1rem;");
+            cardImg6test.setAttribute("src", itemPaths[i]);
+            cardImg6test.setAttribute("onClick", "console.log('WOOHOO')");
+            inventElem.appendChild(cardImg6test);
+          }
+        } else {
+          inventElem.innerHTML = "Your inventory is empty.";
+        }
+      } else {
+        localStorage.setItem("items", JSON.stringify({}));
+      }
+    }
+  }
+
   // Calculate suspicion gained from earnings
   // Method separated for ease of updating the math
   // Input: earnings (e.g. for a round)

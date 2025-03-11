@@ -11,6 +11,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="gambit.css">
   <script defer src="blackjack.js"></script>
+  <script src="https://www.w3schools.com/lib/w3data.js"></script> <!-- to import inventory.html onto this page -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gambit: Blackjack</title>
 </head>
@@ -22,12 +23,15 @@
 
   <audio id="background-music" autoplay loop>
     <source src="Assets/Music/blackjack.mp3">
-</audio>
+  </audio>
 
-<div class="audio-container">
-    <img src="Assets/Music/music_playing.png" id="mute-button">
-</div>
-  
+  <div class="audio-container">
+      <img src="Assets/Music/music_playing.png" id="mute-button">
+  </div>
+
+  <button class="exit-inventory-button" id="invent-exit-button" style="display: none;" onclick="game.toggleInventory()">Exit Inventory</button>
+  <div w3-include-html="inventory.html" id="invent-contain" style="display: none;"></div> <!-- to import inventory.html onto this page -->
+
   <div class="game-container-blackjack" id="gc-blackjack">
     <!-- top bar -->
     <div class="hud-header">
@@ -39,9 +43,9 @@
     <blackjack-container class="blackjack-container">
       <!-- TODO: split further into game tracker numbers, boosts? etc... -->
       <!--    at that time, move (/rename) the 'sbar' id to child element -->
-      <div class="sidebar" style="
-      width: 180px;">
+      <div class="sidebar" style="width: 180px;">
         <div class="scorebar" id="sbar"></div>
+        <div class="game-button" onclick="game.toggleInventory()">Inventory</div>
         <div class="final-hands" id="fbar"></div>
       </div>
       
@@ -89,5 +93,7 @@
     </div>
 
   </div>
+
+  <script defer>w3IncludeHTML()</script> <!-- to import inventory.html onto this page -->
 </body>
 </html>
