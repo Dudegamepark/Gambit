@@ -31,7 +31,8 @@ function initialize() {
         "cost": "50"
       },
     }
-
+    
+    // Check player spending value
     if (localStorage && localStorage.getItem('spentMoney')) {
       this.totalSpent = Number(localStorage.getItem('spentMoney'));
     }
@@ -42,6 +43,7 @@ function initialize() {
       this.totalWallet -= totalSpent;
     }
 
+    // Check day count
     if (localStorage && localStorage.getItem('days')) {
       days = Number(localStorage.getItem('days'));
     }
@@ -64,6 +66,7 @@ function initialize() {
     const tuxImage = document.getElementById('tuxpowerup');
     const cardImage = document.getElementById('cardpowerup');
 
+    // Has the player already purchased the item?
     if (this.items['aceUpYourSleeve'].quantity >= 4) {
       document.getElementById('cardpowerup').style.display = 'none';
     }
@@ -80,6 +83,7 @@ function initialize() {
       document.getElementById('lcpowerup').style.display = 'none';
     }
 
+    // Open popup when player clicks on item
     if (lowCardImage) {
         lowCardImage.addEventListener('click', openPopup);
     }
@@ -135,6 +139,7 @@ function closePopup() {
 
 initialize();
 
+// Purchasing from Card Powerup
 function purchaseCard() {
   let day = 30;
   if (localStorage && localStorage.getItem('day')) {
@@ -155,6 +160,7 @@ function purchaseCard() {
   }
 }
 
+// Purchasing from Disguise Powerup
 function purchaseTux() {
   purchase = document.getElementById('tux-popup');
   let price = 3000;
@@ -171,6 +177,7 @@ function purchaseTux() {
   }
 }
 
+// Purchasing from Dice Powerup
 function purchaseDice() {
   let day = 30;
   if (localStorage && localStorage.getItem('day')) {
@@ -191,6 +198,7 @@ function purchaseDice() {
   }
 }
 
+// Purchasing from Upgrade Powerup
 function purchaseUpgrade() {
   purchase = document.getElementById('upgrade-popup'); 
   let price = 600;
@@ -206,6 +214,7 @@ function purchaseUpgrade() {
   }
 }
 
+// Update wallet
 function updateWallet() {
   localStorage.setItem('spentMoney', totalSpent);
   localStorage.setItem('items', JSON.stringify(this.items));

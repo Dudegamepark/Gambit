@@ -194,3 +194,24 @@ body {
     font-size: larger;
     position: relative;
   }
+  
+  .purchase-button::after {
+    content:'';
+    background: linear-gradient( to right, #15559e, #0e7eff);
+    height: 100%;
+    width: 0px;
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: 150ms ease-in-out;
+}
+  
+.purchase-button:hover::after {
+    width: 100%;
+}
+  
+.purchase-button:hover{
+    color: black;
+  }
