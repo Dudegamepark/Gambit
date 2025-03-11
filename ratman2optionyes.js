@@ -4,6 +4,9 @@ class Dialog {
         this.line = 0;
         
         this.currentDays = Number(localStorage.getItem('days'));
+        this.dailyEarnings = Number(localStorage.getItem('dailyEarnings'));
+        this.totalEarnings = Number(localStorage.getItem('totalEarnings'));
+        this.holdVar = Number(localStorage.getItem('holdVar'));
 
         if (this.currentDays == 28) {
             this.lines = [
@@ -30,11 +33,7 @@ class Dialog {
             return this.lines[this.line];
         } else {
             console.log("End of dialog!");
-            
-            // TODO: update money to current money plus stored val from day 1
-            // localStorage.setItem('totalEarnings', String(this.dailyEarnings + this.holdVar));
-            // this.updateLocalStorage();
-            return ""; // Return an empty message when there's nothing i dunno lololololol
+            return "";
         }
     }
 
@@ -43,8 +42,17 @@ class Dialog {
         if (this.line < this.lines.length) {
             document.getElementById('ratman2yeslines').innerHTML = this.getLine();
         } else {
+            // TODO: update money to current money plus stored val from day 1
+            this.totalEarnings = this.dailyEarnings + this.holdVar;
+            this.updateLocalStorage();
             location.href='mainMenu.html';
             console.log("Dialog end.");
+        }
+    }
+
+    updateLocalStorage() {
+        if (localStorage) {
+            localStorage.setItem('totalEarnings', String(this.totalEarnings));
         }
     }
 }
