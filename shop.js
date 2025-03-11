@@ -4,17 +4,32 @@ function initialize() {
     let days = 30;
     let suspicion = 0;
     this.totalSpent = 0.0;
+
     this.items = {
-      'lowCard': "0",
-      'weightDie': {
-        "days": "0",
-        "quantity": "0"
+      'lowCard': {
+        "description": "Submitting a High Card hand reduces Suspicion by -5 (to a maximum of -10 per game and -50 per day)",
+        "quantity": "0",
+        "type": "permanent",
+        "cost": "600"
       },
-      'tux': "0",
-      'card': {
-        "days": "0",
-        "quantity": "0"
-      }
+      'weightedDie': {
+        "description": "Choose the outcome of any die at any time.",
+        "quantity": "0",
+        "type": "permanent",
+        "cost": "50"
+      },
+      'tearAwayTux': {
+        "description": "Resets Suspicion meter to 50% the first time it rises above 100% and is consumed in the process",
+        "quantity": "0",
+        "type": "disguise",
+        "cost": "3000"
+      },
+      'aceUpYourSleeve': {
+        "description": "Replace any card in your hand at any time in any game with an ace",
+        "quantity": "0",
+        "type": "consumable",
+        "cost": "50"
+      },
     }
 
     if (localStorage && localStorage.getItem('spentMoney')) {
@@ -49,19 +64,19 @@ function initialize() {
     const tuxImage = document.getElementById('tuxpowerup');
     const cardImage = document.getElementById('cardpowerup');
 
-    if (this.items['card'].days == days && this.items['card'].quantity >= 4) {
+    if (this.items['aceUpYourSleeve'].quantity >= 4) {
       document.getElementById('cardpowerup').style.display = 'none';
     }
 
-    if (this.items['tux'] > 0) {
+    if (this.items['tearAwayTux'].quantity > 0) {
       document.getElementById('tuxpowerup').style.display = 'none';
     }
 
-    if (this.items['weightDie'].days == days && this.items['weightDie'].quantity >= 4) {
+    if (this.items['weightedDie'].quantity >= 4) {
       document.getElementById('dicepowerup').style.display = 'none';
     }
 
-    if (this.items['lowCard'] > 0) {
+    if (this.items['lowCard'].quantity > 0) {
       document.getElementById('lcpowerup').style.display = 'none';
     }
 
@@ -132,8 +147,7 @@ function purchaseCard() {
     item.style.display = 'none';
     this.totalWallet -= price;
     this.totalSpent += price;
-    this.items['card'].days = day;
-    this.items['card'].quantity += 1;
+    this.items['aceUpYourSleeve'].quantity += 1;
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
     localStorage.setItem('spentMoney', this.totalSpent);
@@ -149,7 +163,7 @@ function purchaseTux() {
     item.style.display = 'none';
     this.totalWallet -= price;
     this.totalSpent += price;
-    this.items['tux'] = 1;
+    this.items['tearAwayTux'].quantity = 1;
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
       localStorage.setItem('spentMoney', this.totalSpent);
@@ -169,8 +183,7 @@ function purchaseDice() {
     item.style.display = 'none';
     this.totalWallet -= price;
     this.totalSpent += price;
-    this.items['weightDie'].days = day;
-    this.items['card'].quantity += 1;
+    this.items['weightedDie'].quantity += 1;
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
     localStorage.setItem('spentMoney', this.totalSpent);
@@ -185,7 +198,7 @@ function purchaseUpgrade() {
     document.getElementById('lcpowerup').style.display = 'none';
     this.totalWallet -= price;
     this.totalSpent += price;
-    this.items['lowCard'] = 1;
+    this.items['lowCard'].quantity = 1;
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
     localStorage.setItem('spentMoney', this.totalSpent);
