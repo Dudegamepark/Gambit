@@ -155,6 +155,9 @@ body {
   z-index: 0;
   cursor: pointer;
 }
+select {
+  color: black;
+}
 
 .blackjack-button::after{
   content:'';
