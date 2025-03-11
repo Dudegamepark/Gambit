@@ -153,11 +153,10 @@ body {
 
 .content {
     position: relative;
-    background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     z-index: 1002;
-    text-align: center;
+    text-align: left;
     font-family: 'Gamer', monospace;
     font-size: 200%;
 }
@@ -167,6 +166,7 @@ body {
     padding: 5px 10px;
     background-color: #C48037;
     border: none;
+    -webkit-text-fill-color: black;
     border-radius: 5px;
     cursor: pointer;
     font-family: 'Courier New', Courier, monospace;
@@ -176,3 +176,21 @@ body {
 .close-button:hover {
     background-color: #a3662d;
 }
+
+.purchase-button {
+    margin: 0.5rem;
+    height: 50%;
+    width: 50;
+    background-color: #0e7eff;
+    border-style: solid;
+    border-color: black;
+    -webkit-text-fill-color: white;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace; 
+    font-weight: bolder;
+    z-index: 0;
+    font-size: larger;
+    position: relative;
+  }
