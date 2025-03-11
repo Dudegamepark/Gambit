@@ -33,8 +33,26 @@ muteButton.addEventListener('click', () => {
   if (audio.muted) {
     audio.muted = false;
     muteButton.src = "Assets/Music/music_playing.png";
+    localStorage.setItem('muted', 'false');
   } else {
     audio.muted = true;
     muteButton.src = "Assets/Music/music_muted.png";
+    localStorage.setItem('muted', 'true');
   }
 });
+
+function checkAudio() {
+  if (!localStorage.getItem('muted')) {
+    localStorage.setItem('muted', 'false');
+  }
+
+  if (localStorage && localStorage.getItem('muted') == 'true') {
+    audio.muted = true;
+    muteButton.src = "Assets/Music/music_muted.png";
+  } else {
+    audio.muted = false;
+    muteButton.src = "Assets/Music/music_playing.png";
+  }
+}
+
+checkAudio();
