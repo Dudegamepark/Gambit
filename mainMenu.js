@@ -44,6 +44,8 @@ muteButton.addEventListener('click', () => {
 function checkAudio() {
   if (!localStorage.getItem('muted')) {
     localStorage.setItem('muted', 'false');
+    audio.muted = false;
+    muteButton.src = "Assets/Music/music_muted.png";
   }
 
   if (localStorage && localStorage.getItem('muted') == 'true') {

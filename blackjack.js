@@ -487,6 +487,8 @@ const muteButton = document.getElementById('mute-button');
 function checkAudio() {
   if (localStorage.getItem('muted') == null) {
     localStorage.setItem('muted', 'false');
+    audio.muted = false;
+    muteButton.src = "Assets/Music/music_playing.png";
   }
 
   if (localStorage && localStorage.getItem('muted') == 'true') {
