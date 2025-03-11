@@ -69,10 +69,9 @@ class Dialog {
             this.currentDays -= 1;
             this.currentSus = 0;
             // store double your wallet amount in a local var
-            localStorage.setItem('holdVar', String(this.totalEarnings*2));
             // TODO: update money to 0 because ratman stole your wallet
-            // localStorage.setItem('totalEarnings', String(0));
-            // localStorage.setItem('dailyEarnings', String(0));
+            this.holdVar = this.totalEarnings * 2;
+            this.totalEarnings = 0;
             // to return on day 2
             this.updateLocalStorage();
             location.href='ratman1.html';
@@ -105,6 +104,7 @@ class Dialog {
             localStorage.setItem('totalEarnings', String(this.totalEarnings));
             localStorage.setItem('dailyEarnings', String(0.0));
             localStorage.setItem('favor', String(this.favor));
+            localStorage.setItem('holdVar', String(this.holdVar));
         }
     }
 }
