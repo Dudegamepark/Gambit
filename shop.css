@@ -27,6 +27,7 @@ body {
     margin: 0.5rem;
     height: 40px;
     width: fit-content;
+    color: black;
     background-color: #C48037;
     border-style: solid;
     border-radius: 8px;
@@ -37,6 +38,9 @@ body {
     position: relative;
     z-index: 0;
     cursor: pointer;
+}
+select {
+    color: black;
 }
 
 .back-button::after {

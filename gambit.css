@@ -239,12 +239,16 @@ select {
   border-style: solid;
   border-radius: 8px;
   border-color: black;
+  color: black;
   font-family: 'Courier New', Courier, monospace; 
   font-weight: bolder;
   font-size: larger;
   position: relative;
   z-index: 0;
   cursor: pointer;
+}
+select {
+  color: black;
 }
 
 .back-button::after{
