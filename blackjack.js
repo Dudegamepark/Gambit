@@ -91,6 +91,18 @@ class Blackjack {
       this.playerTotalEarnings = 0.0;
     }
 
+    if (localStorage && localStorage.getItem('items')) {
+      this.items = JSON.parse(localStorage.getItem('items'));
+    } else {
+      this.items = {};
+    }
+
+    if (localStorage && localStorage.getItem('spentMoney')) {
+      this.playerSpentMoney = Number(localStorage.getItem('spentMoney'));
+    } else {
+      this.playerSpentMoney = 0.0;
+    }
+
     if (localStorage && localStorage.getItem('dailyEarnings')) {
       this.playerDailyEarnings = Number(localStorage.getItem('dailyEarnings'));
     } else {
@@ -193,7 +205,7 @@ class Blackjack {
     this.disableButtons();
     
     setTimeout(() => {
-      document.getElementById('sbar').innerHTML = `Total Earnings: ${this.playerTotalEarnings} (+${this.playerBaseMult * this.playerCurrentEarnings}) - Multiplier: ${this.playerBaseMult}`;
+      document.getElementById('sbar').innerHTML = `Total Earnings: ${this.playerTotalEarnings - this.playerSpentMoney} (+${this.playerBaseMult * this.playerCurrentEarnings}) - Multiplier: ${this.playerBaseMult}`;
       
       this.resetRound();
       this.enableButtons();
@@ -336,7 +348,6 @@ class Blackjack {
   populateInventory() {
     if (localStorage) {
       if (localStorage.getItem("items")) {
-        const itemDirectory = JSON.parse(localStorage.getItem("items"));
         let itemPaths = [];
   
         const inventChildren = document.getElementById("invent-contain").children;
@@ -346,27 +357,43 @@ class Blackjack {
             inventElem = child;
           }
         }
-
-        const items = Object.keys(itemDirectory);
-  
-        items.forEach(name => {
-          itemPaths.push(`Assets\\Cards\\Items\\${name}.png`);
+        
+        console.log(typeof(this.items))
+        const itemNames = Object.keys(this.items);
+        
+        itemNames.forEach(name => {
+          console.log("hits")
+          if (this.items[name]['quantity'] > 0) {
+            itemPaths.push([name, `Assets\\Cards\\Items\\${name}.png`]);
+          }
         });
 
         if (itemPaths.length !== 0) {
-          for (let i = 0; i < items.length; i++) {
+          for (let i = 0; i < itemPaths.length; i++) {
             let cardImg = document.createElement("img");
             cardImg.setAttribute("style", "width: 20%; margin: 1rem;");
-            cardImg.setAttribute("src", itemPaths[i]);
-            cardImg.setAttribute("onClick", "console.log('WOOHOO')");
+            cardImg.setAttribute("src", itemPaths[i][1]);
+            cardImg.setAttribute("onClick", `game.blackjackItem('${itemPaths[i][0]}')`);
             inventElem.appendChild(cardImg);
           }
         } else {
           inventElem.innerHTML = "Your inventory is empty.";
         }
-      } else {
-        localStorage.setItem("items", JSON.stringify({}));
       }
+    }
+  }
+
+  // Item usage method
+  blackjackItem(itemName) {
+    if (itemName === "aceUpYourSleeve") {
+      this.earn(this.player.drawSpecific(new Card("Hearts", 1)));
+
+      this.suspicion += 5;
+      this.items[itemName].quantity = String(Number(this.items[itemName].quantity) - 1);
+
+      this.displayStats();
+      this.updateLocalState();
+      this.toggleInventory();
     }
   }
 
@@ -449,7 +476,7 @@ class Blackjack {
   // TODO: maintain as front-end is updated
   // Displays game state values on front-end
   displayStats() {
-    document.getElementById('sbar').innerHTML = `Wallet: $${this.playerTotalEarnings.toFixed(2)} <br> Current Hand: <br> +($${this.playerCurrentEarnings.toFixed(2)} x ${this.playerBaseMult.toFixed(1)})`;
+    document.getElementById('sbar').innerHTML = `Wallet: $${(this.playerTotalEarnings - this.playerSpentMoney).toFixed(2)} <br> Current Hand: <br> +($${this.playerCurrentEarnings.toFixed(2)} x ${this.playerBaseMult.toFixed(1)})`;
 
     const pCardPaths = this.player.handToCards();
     const pHandElem = document.getElementById("p-hand");
@@ -521,6 +548,16 @@ class BlackjackPlayer {
 
     // Return card for earning computation
     return drawnCard;
+  }
+
+  drawSpecific(card) {
+    // Increment sum
+    this.sum += card.getScore();
+
+    // Add to hand
+    this.hand.push(card);
+
+    return card;
   }
 
   // Checks for bust condition (>21)
