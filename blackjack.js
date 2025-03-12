@@ -259,14 +259,14 @@ class Blackjack {
         
       // Suspicion increments by money gained
       this.suspicion += this.calcSus(this.playerCurrentEarnings * this.playerBaseMult);
-      dataLayer.push({'event': 'blackjack_win'});
+      dataLayer.push({event: 'blackjack_win'});
       document.getElementById('r-result').innerHTML = 'You win!';
 
     } else if (this.house.sum > this.player.sum) {
       // Lose condition 2: house sum is higher
       // baseMult = 1.0; round earnings = 0
       this.playerBaseMult = 1.0;
-      dataLayer.push({'event': 'blackjack_lose'});
+      dataLayer.push({event: 'blackjack_lose'});
       document.getElementById('r-result').innerHTML = 'You lose!';
     } else if (this.house.sum === this.player.sum) {
       // Tie condition: house and player sums are equal
