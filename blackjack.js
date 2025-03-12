@@ -149,7 +149,7 @@ class Blackjack {
     this.earn(this.player.draw());
 
     this.updateLocalState();
-    this.displayStats();
+    this.displayStats(false);
     document.getElementById('r-result').innerHTML = '';
   }
 
@@ -195,7 +195,7 @@ class Blackjack {
       }
     }
 
-    this.displayStats();
+    this.displayStats(false);
     
     // TODO: Find a place to display the final hands information; maybe at the bottom of sidebar?
     document.getElementById('fbar').innerHTML = `Final Hands: </br> YOU (${this.player.sum}): </br> ${this.player.handToString()} </br> </br> HOUSE (${this.house.sum}): </br>${this.house.handToString()}`;
@@ -227,7 +227,6 @@ class Blackjack {
       // baseMult = 1.0; round earnings = 0
       this.playerBaseMult = 1.0;
       document.getElementById('r-result').innerHTML = 'You lose!';
-
     } else if (this.house.checkBust() || this.player.sum > this.house.sum) {
       // Win conditions: house bust or player sum is higher
       // baseMult increments; round earnings multiplied by base and added to total
@@ -260,14 +259,6 @@ class Blackjack {
         
       // Suspicion increments by money gained
       this.suspicion += this.calcSus(this.playerCurrentEarnings * this.playerBaseMult);
-      // TODO: check if suspicion is greater than 100
-      // if yes, change to game loss screen
-      if (this.checkSus()) {
-        document.getElementById('id02').style.display='block';
-      }
-      if (this.checkWin()) {
-        document.getElementById('id03').style.display='block';
-      }
 
       document.getElementById('r-result').innerHTML = 'You win!';
 
@@ -302,6 +293,15 @@ class Blackjack {
     // General reset steps; everything has been incremented
     this.playerCurrentEarnings = 0;
     this.updateLocalState();
+
+    // Check if suspicion is greater than 100
+    // if yes, change to game loss screen
+    if (this.checkSus()) {
+      document.getElementById('id02').style.display='block';
+    }
+    if (this.checkWin()) {
+      document.getElementById('id03').style.display='block';
+    }
   }
 
   // Check if the player has maxxed out suspicion
@@ -358,13 +358,13 @@ class Blackjack {
           }
         }
         
-        console.log(typeof(this.items))
         const itemNames = Object.keys(this.items);
         
         itemNames.forEach(name => {
-          console.log("hits")
           if (this.items[name]['quantity'] > 0) {
-            itemPaths.push([name, `Assets\\Cards\\Items\\${name}.png`]);
+            for (let i = 0; i < this.items[name]['quantity']; i++) {
+              itemPaths.push([name, `Assets\\Cards\\Items\\${name}.png`]);
+            }
           }
         });
 
@@ -385,15 +385,73 @@ class Blackjack {
 
   // Item usage method
   blackjackItem(itemName) {
+    // Regardless of the item used, inventory should go away
+    this.toggleInventory();
+
     if (itemName === "aceUpYourSleeve") {
+      // Manually draw an Ace of Hearts
       this.earn(this.player.drawSpecific(new Card("Hearts", 1)));
 
       this.suspicion += 5;
-      this.items[itemName].quantity = String(Number(this.items[itemName].quantity) - 1);
+      this.items[itemName].quantity += 1;
 
-      this.displayStats();
+      this.displayStats(false);
       this.updateLocalState();
-      this.toggleInventory();
+    } else if (itemName === "unoReverse") {
+      // Switch all BlackjackPlayer fields except for the deck
+      const playerPrevHand = this.player.hand;
+      const playerPrevSum = this.player.sum;
+      const playerPrevDrawing = this.player.drawing;
+      const playerPrevDoubling = this.player.doubling;
+
+      this.player.hand = this.house.hand;
+      this.player.sum = this.house.sum;
+      this.player.drawing = this.house.drawing;
+      this.player.doubling = this.house.doubling;
+
+      this.house.hand = playerPrevHand;
+      this.house.sum = playerPrevSum;
+      this.house.drawing = playerPrevDrawing;
+      this.house.doubling = playerPrevDoubling;
+
+      // this.suspicion += ???; TODO
+      this.items[itemName].quantity -= 1;
+
+      this.displayStats(true);
+    } else if (itemName === "morph") {
+      // Check for an ace in hand; replace with a random face card
+      // If no ace hand in deck, give a descriptive failure message (in r-result text box)
+      let replaceIdx = -1;
+      for (let i = 0; i < this.player.hand.length; i++) {
+        if (this.player.hand[i].getRank() === 'A') {
+          // Picks the last ace in the current hand
+          replaceIdx = i;
+        }
+      }
+
+      if (replaceIdx !== -1) {
+        const suit = this.player.hand[replaceIdx].getSuit();
+        const validRanks = [11, 12, 13];
+
+        this.player.hand.splice(replaceIdx, 1);
+        this.earn(this.player.drawSpecific(new Card(suit, validRanks[Math.floor(Math.random() * validRanks.length)])));
+
+        // this.suspicion += ???; TODO
+        this.items[itemName].quantity -= 1;
+        
+        this.displayStats(true);
+      } else {
+        document.getElementById('r-result').innerHTML = 'No ace cards to Morph in the current hand!'
+
+        setTimeout(() => {
+          document.getElementById('r-result').innerHTML = '';
+        }, 2000);
+      }
+    }
+
+    // Check if suspicion was surpassed
+    if (this.checkSus()) {
+      document.getElementById('id02').style.display='block';
     }
   }
 
@@ -452,7 +510,7 @@ class Blackjack {
       // false indicates that round completion depends on house moves
       this.houseLoop(false);
     } else {
-      this.displayStats();
+      this.displayStats(false);
     }
 
     this.updateLocalState();
@@ -473,14 +531,17 @@ class Blackjack {
     return this.house.checkBust();
   }
 
-  // TODO: maintain as front-end is updated
   // Displays game state values on front-end
-  displayStats() {
+  displayStats(shouldForceReset) {
     document.getElementById('sbar').innerHTML = `Wallet: $${(this.playerTotalEarnings - this.playerSpentMoney).toFixed(2)} <br> Current Hand: <br> +($${this.playerCurrentEarnings.toFixed(2)} x ${this.playerBaseMult.toFixed(1)})`;
 
     const pCardPaths = this.player.handToCards();
     const pHandElem = document.getElementById("p-hand");
 
+    if (shouldForceReset) {
+      pHandElem.innerHTML = '';
+    }
+    
     for (let i = pHandElem.childNodes.length; i < pCardPaths.length; i++) {
       let cardImg = document.createElement("img");
       cardImg.setAttribute("class", "player-card");
@@ -488,9 +549,13 @@ class Blackjack {
       cardImg.setAttribute("height", "100%");
       pHandElem.appendChild(cardImg);
     }
-
+    
     const hCardPaths = this.house.handToCards();
     const hHandElem = document.getElementById("h-hand");
+    
+    if (shouldForceReset) {
+      hHandElem.innerHTML = '';
+    }
 
     for (let i = hHandElem.childNodes.length; i < hCardPaths.length; i++) {
       let cardImg = document.createElement("img");

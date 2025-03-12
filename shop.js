@@ -10,7 +10,7 @@ function initialize() {
         "description": "Submitting a High Card hand reduces Suspicion by -5 (to a maximum of -10 per game and -50 per day)",
         "quantity": 0,
         "type": "permanent",
-        "cost": "600"
+        "cost": 600
       },
       'weightedDie': {
         "description": "Choose the outcome of any die at any time.",
@@ -25,7 +25,7 @@ function initialize() {
         "cost": 3000
       },
       'aceUpYourSleeve': {
-        "description": "Replace any card in your hand at any time in any game with an ace",
+        "description": "The next card you draw to be an ace of hearts.",
         "quantity": 0,
         "type": "consumable",
         "cost": 50
@@ -40,7 +40,7 @@ function initialize() {
     // Check for nonzero earnings value
     if (localStorage && localStorage.getItem('totalEarnings')) {
       this.totalWallet = Number(localStorage.getItem('totalEarnings'));
-      this.totalWallet -= totalSpent;
+      this.totalWallet -= this.totalSpent;
     }
 
     // Check day count

@@ -86,54 +86,160 @@ select {
     transition: 150ms ease-in-out;
   }
   
-  .game-button:hover::after {
-    width: 100%;
-  }
-  
-  .game-button:hover{
-    color: black;
-  }
+.game-button:hover::after {
+  width: 100%;
+}
 
-  .eod-button {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    margin: 0.5rem;
-    height: 50%;
-    width: 50;
-    background-color: #0e7eff;
-    border-style: solid;
-    border-color: black;
-    color: black;
-    border-radius: 8px;
-    padding: 10px;
-    cursor: pointer;
-    font-family: 'Courier New', Courier, monospace; 
-    font-weight: bolder;
-    z-index: 0;
-    font-size: larger;
-    position: relative;
-  }
-  select {
-    color: black;
-  }
+.game-button:hover{
+  color: black;
+}
 
-  .eod-button::after{
-    content:'';
-    background: linear-gradient( to right, #115099, #0e7eff);
-    height: 100%;
-    width: 0px;
-    border-radius: 8px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: -1;
-    transition: 150ms ease-in-out;
-  }
-  
-  .eod-button:hover::after {
-    width: 100%;
-  }
-  
-  .eod-button:hover{
-    color: black;
-  }
+.give-up-confirmation-button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  margin: 0.5rem;
+  height: 2.5rem;
+  width: 50;
+  background-color: #FFC20E;
+  border-style: solid;
+  border-color: black;
+  color: black;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  z-index: 0;
+  font-size: small;
+  position: relative;
+}
+select {
+  color: black;
+}
+
+.give-up-confirmation-button::after{
+  content:'';
+  background: linear-gradient( to right, #cb881d, #FFC20E);
+  height: 100%;
+  width: 0px;
+  border-radius: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  transition: 150ms ease-in-out;
+}
+
+.give-up-confirmation-button:hover::after {
+  width: 100%;
+}
+
+.give-up-confirmation-button:hover{
+  color: black;
+}
+
+.give-up-button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  font-size: small;
+  position: absolute;
+  background-color: #9C0808;
+  border-style: solid;
+  border-color: black;
+  color: black;
+  border-radius: 8px;
+  padding: 10px;
+  height: 2.5rem;
+  right: 2%;
+  bottom: 2%;
+  z-index: 0;
+}
+select {
+  color: black;
+}
+
+.give-up-button::after{
+  content:'';
+  background: linear-gradient( to right, #621b1b, #9C0808);
+  height: 100%;
+  width: 0px;
+  border-radius: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  transition: 150ms ease-in-out;
+}
+
+.give-up-button:hover::after {
+  width: 100%;
+}
+
+.give-up-button:hover{
+  color: black;
+}
+
+.give-up-confirmation {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 80vw;
+  padding: 10px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 8px;
+  color: white;
+  background-color: #9C0808;
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  font-size: larger;
+}
+
+.eod-button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  margin: 0.5rem;
+  height: 50%;
+  width: 50;
+  background-color: #0e7eff;
+  border-style: solid;
+  border-color: black;
+  color: black;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bolder;
+  z-index: 0;
+  font-size: larger;
+  position: relative;
+}
+select {
+  color: black;
+}
+
+.eod-button::after{
+  content:'';
+  background: linear-gradient( to right, #115099, #0e7eff);
+  height: 100%;
+  width: 0px;
+  border-radius: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  transition: 150ms ease-in-out;
+}
+
+.eod-button:hover::after {
+  width: 100%;
+}
+
+.eod-button:hover{
+  color: black;
+}

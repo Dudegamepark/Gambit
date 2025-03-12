@@ -27,6 +27,32 @@ function initialize() {
   document.getElementById('money-won-box').innerHTML = `Money Won: <br> $${(totalEarnings - spentMoney).toFixed(0)}/$10,000,000`;
   document.getElementById('days-left-box').innerHTML = `Days Left: <br> ${days}`;
   document.getElementById('suspicion-box').innerHTML = `Suspicion: <br> ${Math.floor(suspicion)}/100`;
+
+  if (suspicion > 99) {
+    const buttons = document.getElementsByClassName('game-button');
+    const eodButton = document.getElementById('eod-button');
+    const giveUpButton = document.getElementById('give-up-button');
+
+    for (const button of buttons) {
+      button.style.setProperty('display', 'none');
+    }
+
+    eodButton.style.setProperty('display', 'none');
+    
+    giveUpButton.style.setProperty('height', '10vh');
+    giveUpButton.style.setProperty('width', '10vw');
+    giveUpButton.style.setProperty('font-size', 'larger');
+  }
+}
+
+function toggleGiveUp() {
+  const giveUp = document.getElementById('give-up-contain');
+
+  if (giveUp.style.display === "none") {
+    giveUp.style.display = "block";
+  } else {
+    giveUp.style.display = "none";
+  }
 }
 
 initialize();

@@ -15,85 +15,95 @@
     <title>Gambit: Main Menu</title>
 </head>
 <body>
-    <style>
-        body {
-            background-image: url("Assets/Backgrounds/mainMenuBackground.png");    
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none;
-            height: 100%;
-        }
-    </style>
-    
-    <audio id="background-music" autoplay loop>
-        <source src="Assets/Music/title_loading_inventory.mp3">
-    </audio>
-    
-    <div class="audio-container">
-        <img src="Assets/Music/music_playing.png" id="mute-button">
-    </div>
-
-    <div class="menu-container">
-        <!--logo-->
-        <div  
-            style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-                <img 
-                    width="350" 
-                    src="Assets/Logo/heartLogo.png">
+    <div>
+        <style>
+            body {
+                background-image: url("Assets/Backgrounds/mainMenuBackground.png");    
+                -webkit-user-select: none; /* Safari */
+                -ms-user-select: none; /* IE 10 and IE 11 */
+                user-select: none;
+                height: 100%;
+            }
+        </style>
+        
+        <audio id="background-music" autoplay loop>
+            <source src="Assets/Music/title_loading_inventory.mp3">
+        </audio>
+        
+        <div class="audio-container">
+            <img src="Assets/Music/music_playing.png" id="mute-button">
         </div>
 
-        <!--game modes sign-->
-        <div 
-            style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-                <img 
-                    width="150" 
-                    src="Assets/MainMenu/gameModesSign.png">
-        </div>
+        <div class="menu-container">
+            <!--logo-->
+            <div  
+                style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                    <img 
+                        width="350" 
+                        src="Assets/Logo/heartLogo.png">
+            </div>
 
-        <!--game buttons-->
-        <div 
-            style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <!--game modes sign-->
+            <div 
+                style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                    <img 
+                        width="150" 
+                        src="Assets/MainMenu/gameModesSign.png">
+            </div>
 
-            <button 
-                class="game-button" 
-                onclick="location.href='blackjack.html'"
-                title="Click here to play Blackjack">
-                    Blackjack
-            </button>
+            <!--game buttons-->
+            <div 
+                style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+
+                <button 
+                    class="game-button" 
+                    onclick="location.href='blackjack.html'"
+                    title="Click here to play Blackjack">
+                        Blackjack
+                </button>
+                <br>
+            </div>
+
+            <!--stats-->
+            <!--TODO: add variable amounts to these boxes-->
+            <div  
+                style="display: flex; flex-direction: row;  align-items: center; justify-content: center;">
+                <stats-container 
+                    style="text-align: center;" 
+                    class="stats-box"
+                    id="money-won-box"
+                    title="Total money won"></stats-container>
+                <stats-container 
+                    style="text-align: center;" 
+                    class="stats-box"
+                    id="days-left-box"
+                    title="Days left to play"></stats-container>
+                <stats-container 
+                    style="text-align: center;" 
+                    class="stats-box"
+                    id="suspicion-box"
+                    title="Current suspicion level"></stats-container>
+            </div>
             <br>
-        </div>
+            <!-- TODO add something here that only shows the end day button if they have played blackjack -->
+            <div  
+                style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                <button class="game-button" onclick="location.href='shop.html'" title="Click here to enter the shop.">Shop</button>
+                <button class="eod-button" id="eod-button" onclick="location.href='eod.html'" title="Click here to end the current day.">End Day</button>
+            </div>
 
-        <!--stats-->
-        <!--TODO: add variable amounts to these boxes-->
-        <div  
-            style="display: flex; flex-direction: row;  align-items: center; justify-content: center;">
-            <stats-container 
-                style="text-align: center;" 
-                class="stats-box"
-                id="money-won-box"
-                title="Total money won"></stats-container>
-            <stats-container 
-                style="text-align: center;" 
-                class="stats-box"
-                id="days-left-box"
-                title="Days left to play"></stats-container>
-            <stats-container 
-                style="text-align: center;" 
-                class="stats-box"
-                id="suspicion-box"
-                title="Current suspicion level"></stats-container>
+            <button class="give-up-button" id="give-up-button" onclick="toggleGiveUp()">Give Up</button>
         </div>
-        <br>
-        <!-- TODO add something here that only shows the end day button if they have played blackjack -->
-        <div  
-            style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-            <button class="game-button" onclick="location.href='shop.html'" title="Click here to enter the shop.">Shop</button>
-            <button class="eod-button" onclick="location.href='eod.html'" title="Click here to end the current day.">End Day</button>
+        <div class="give-up-confirmation" id="give-up-contain" style="display: none">
+            Are you sure you want to give up? This will reset all your progress.
+            <br>
+            <button class="give-up-confirmation-button" onclick="toggleGiveUp()">Keep Playing</button>
+            <button class="give-up-confirmation-button" onclick="location.href='loss.html'">Give Up</button>
         </div>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FN6D774"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
     </div>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FN6D774"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 </body>
 </html>
