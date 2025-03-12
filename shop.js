@@ -156,6 +156,9 @@ function purchaseCard() {
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
     localStorage.setItem('spentMoney', this.totalSpent);
+    dataLayer.push({
+      event: 'AceUp_purchase',
+    });
     closePopup();
   }
 }
@@ -173,6 +176,9 @@ function purchaseTux() {
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
       localStorage.setItem('spentMoney', this.totalSpent);
+      dataLayer.push({
+        event: 'tearAway_purchase',
+      });
     closePopup();
   }
 }
@@ -194,6 +200,9 @@ function purchaseDice() {
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
     localStorage.setItem('spentMoney', this.totalSpent);
+    dataLayer.push({
+      event: 'weightedDie_purchase',
+    });
     closePopup();
   }
 }
@@ -210,6 +219,9 @@ function purchaseUpgrade() {
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
     localStorage.setItem('spentMoney', this.totalSpent);
+    dataLayer.push({
+      event: 'lowCard_purchase',
+    });
     closePopup();
   }
 }
