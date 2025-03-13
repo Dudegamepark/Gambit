@@ -502,6 +502,9 @@ class Blackjack {
         document.getElementById('hit-butt').style.pointerEvents = "all";
         document.getElementById('double-butt').style.pointerEvents = "all";
         document.getElementById('stand-butt').style.pointerEvents = "all";
+        dataLayer.push({
+          event: 'tutorialOneDone',
+        });
         this.onboarded = true;
         this.updateLocalState();
       }
@@ -549,6 +552,9 @@ class Blackjack {
         document.getElementById('hit-butt').style.pointerEvents = "all";
         document.getElementById('double-butt').style.pointerEvents = "all";
         document.getElementById('stand-butt').style.pointerEvents = "all";
+        dataLayer.push({
+          event: 'tutorialTwoDone',
+        });
         this.onboarded = true;
         this.updateLocalState();
       }
