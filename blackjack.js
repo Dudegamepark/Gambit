@@ -161,6 +161,15 @@ class Blackjack {
       this.strangerInteraction1 = stats.strangerInteraction1;
       this.onboarded = stats.onboarded;
       this.abTutorialTester = stats.abTutorialTester;
+      if (this.abTutorialTester == 1) {
+        dataLayer.push({
+          event: 'tutorialOne',
+        });
+      } else {
+        dataLayer.push({
+          event: 'tutorialTwo',
+        });
+      }
       dataLayer.push({
         event: 'abTutorialTester',
         tutorial_data: this.abTutorialTester
@@ -170,6 +179,15 @@ class Blackjack {
       this.strangerInteraction1 = false;
       this.onboarded = false;
       this.abTutorialTester = Math.floor(Math.random() * 2) + 1;
+      if (this.abTutorialTester == 1) {
+        dataLayer.push({
+          event: 'tutorialOne',
+        });
+      } else {
+        dataLayer.push({
+          event: 'tutorialTwo',
+        });
+      }
       dataLayer.push({
         event: 'abTutorialTester',
         tutorial_data: this.abTutorialTester
