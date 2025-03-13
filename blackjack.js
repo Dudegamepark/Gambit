@@ -80,6 +80,39 @@ class Deck {
 // Blackjack game-running class; has 2 decks and 2 hands
 class Blackjack {
   constructor() {
+    // Used for onboarding tutorial only
+    // A: Teach players how to double
+    this.tutorialPagesA = [
+      "Assets\\Tutorials\\Blackjack\\tutStart.png",
+      "Assets\\Tutorials\\Blackjack\\tutHouseHandArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutPlayerHandArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutHitArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutStandArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutYouWon.png",
+      "Assets\\Tutorials\\Blackjack\\tutWalletArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutDoubleArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutYouWon.png",
+      "Assets\\Tutorials\\Blackjack\\tutYoureReady.png",
+      "Assets\\Tutorials\\Blackjack\\tutHelpArrow.png"
+    ];
+    // B: Let players decide second tutorial hand themselves
+    this.tutorialPagesB = [
+      "Assets\\Tutorials\\Blackjack\\tutStart.png",
+      "Assets\\Tutorials\\Blackjack\\tutHouseHandArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutPlayerHandArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutHitArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutStandArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutYouWon.png",
+      "Assets\\Tutorials\\Blackjack\\tutChoice.png",
+      "Assets\\Tutorials\\Blackjack\\tutStandArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutYouWon.png",
+      "Assets\\Tutorials\\Blackjack\\tutWalletArrow.png",
+      "Assets\\Tutorials\\Blackjack\\tutYoureReady.png",
+      "Assets\\Tutorials\\Blackjack\\tutHelpArrow.png"
+    ];
+
+    this.tutorialPage = 0;
+
     // Used for Future Sight
     this.peekedCard = new Card('NULL', 0);
 
@@ -126,12 +159,26 @@ class Blackjack {
       const stats = JSON.parse(localStorage.getItem('blackjack'));
       this.playerBaseMult = stats.multiplier;
       this.strangerInteraction1 = stats.strangerInteraction1;
+      this.onboarded = stats.onboarded;
+      this.abTutorialTester = stats.abTutorialTester;
     } else {
       this.playerBaseMult = 1.0;
       this.strangerInteraction1 = false;
+      this.onboarded = false;
+      this.abTutorialTester = Math.floor(Math.random() * 2) + 1;
     }
 
-    this.resetRound();
+    // Stranger interaction 1 happens after 5 wins
+    if (!this.strangerInteraction1) {
+      this.fiveWins = 0;
+    }
+
+    // Decide whether to go to scripted tutorial or reset normally
+    if (!this.onboarded) {
+      this.resetTutorial();
+    } else {
+      this.resetRound();
+    }
   }
 
   // Resets decks and empties hands
@@ -160,6 +207,62 @@ class Blackjack {
     this.updateLocalState();
     this.displayStats(false);
     document.getElementById('r-result').innerHTML = '';
+  }
+
+  // Sets game state to predetermined tutorial numbers
+  //   (different results based on A/B group)
+  resetTutorial() {
+    this.house.reset();
+    this.player.reset();
+
+    // Clear the card visuals from hands
+    document.getElementById("p-hand").replaceChildren();
+    document.getElementById("h-hand").replaceChildren();
+
+    if (this.tutorialPage === 0) {
+      this.house.drawSpecific(new Card("Hearts", 1));
+      this.house.drawSpecific(new Card("Spades", 3));
+  
+      this.earn(this.player.drawSpecific(new Card("Spades", 11)));
+      this.earn(this.player.drawSpecific(new Card("Clubs", 4)));
+    } else {
+      if (this.abTutorialTester === 1) {
+        this.house.drawSpecific(new Card("Clubs", 8));
+        this.house.drawSpecific(new Card("Diamonds", 13));
+    
+        this.earn(this.player.drawSpecific(new Card("Diamonds", 8)));
+        this.earn(this.player.drawSpecific(new Card("Spades", 10)));
+      } else {
+        this.house.drawSpecific(new Card("Clubs", 6));
+        this.house.drawSpecific(new Card("Diamonds", 13));
+    
+        this.earn(this.player.drawSpecific(new Card("Diamonds", 8)));
+        this.earn(this.player.drawSpecific(new Card("Spades", 10)));
+      }
+    }
+
+    this.updateLocalState();
+    this.displayStats(false);
+    document.getElementById('r-result').innerHTML = '';
+
+    if (this.tutorialPage === 0) {
+      document.getElementById('back-butt').style.display = "none";
+      document.getElementById('help-butt').style.pointerEvents = "none";
+      document.getElementById('hit-butt').style.pointerEvents = "none";
+      document.getElementById('double-butt').style.pointerEvents = "none";
+      document.getElementById('stand-butt').style.pointerEvents = "none";
+
+      if (this.abTutorialTester === 1) {
+        this.appearTutorial(this.tutorialPagesA[this.tutorialPage]);
+      } else {
+        document.getElementById('help-butt').style.backgroundColor = "#002810";
+        document.getElementById('help-butt').style.borderColor = "#002810";
+        document.getElementById('help-butt').style.color = "#002810";
+        this.appearTutorial(this.tutorialPagesB[this.tutorialPage]);
+      }
+
+      this.tutorialPage += 1;
+    }
   }
 
   // Updates player score and multiplier based on a card
@@ -216,7 +319,11 @@ class Blackjack {
     setTimeout(() => {
       document.getElementById('sbar').innerHTML = `Total Earnings: ${this.playerTotalEarnings - this.playerSpentMoney} (+${this.playerBaseMult * this.playerCurrentEarnings}) - Multiplier: ${this.playerBaseMult}`;
       
-      this.resetRound();
+      if (!this.onboarded) {
+        this.resetTutorial();
+      } else {
+        this.resetRound();
+      }
       this.enableButtons();
     }, 2000);
   }
@@ -245,11 +352,13 @@ class Blackjack {
       this.playerTotalEarnings += this.playerCurrentEarnings * this.playerBaseMult;
       this.playerDailyEarnings += this.playerCurrentEarnings * this.playerBaseMult;
       // if they have not interacted with the stranger
-      if (!this.strangerInteraction1) {
+      if (!this.strangerInteraction1 && this.fiveWins >= 5) {
         // npc box pops up
         document.getElementById('id01').style.display='block';
+        this.strangerInteraction1 = true;
+      } else {
+        this.fiveWins += 1;
       }
-      this.strangerInteraction1 = true;
       
       switch (this.player.sum) {
         case 21:
@@ -292,15 +401,17 @@ class Blackjack {
       this.playerTotalEarnings += (this.playerCurrentEarnings * this.playerBaseMult) / 2;
       this.playerDailyEarnings += (this.playerCurrentEarnings * this.playerBaseMult) / 2;
       this.suspicion += this.calcSus((this.playerCurrentEarnings * this.playerBaseMult) / 2);
-      // TODO: check if suspicion is greater than 100
-      // if yes, change to game loss screen
+
       document.getElementById('r-result').innerHTML = 'You tied!';
+
       // if they have not interacted with the stranger
-      if (!this.strangerInteraction1) {
+      if (!this.strangerInteraction1 && this.fiveWins >= 5) {
         // npc box pops up
         document.getElementById('id01').style.display='block';
+        this.strangerInteraction1 = true;
+      } else {
+        this.fiveWins += 1;
       }
-      this.strangerInteraction1 = true;
 
     } else {
       // Sanity case
@@ -329,6 +440,93 @@ class Blackjack {
   // Check if the player has won the game
   checkWin() {
     return this.playerTotalEarnings > 999999;
+  }
+  
+  appearTutorial(imgPath) {
+    const tutorial = document.getElementById('tutorial-contain');
+    const tutorialImg = document.getElementById('tutorial-pic');
+
+    tutorialImg.src = imgPath;
+    tutorial.style.display = "block";
+  }
+
+  progressTutorial() {
+    if (this.abTutorialTester === 1) {
+      this.appearTutorial(this.tutorialPagesA[this.tutorialPage]);
+
+      if (this.tutorialPage === 3) {
+        document.getElementById('tut-next-butt').style.display = "none";
+        document.getElementById('hit-butt').style.pointerEvents = "all";
+      } else if (this.tutorialPage === 4) {
+        document.getElementById('hit-butt').style.pointerEvents = "none";
+        document.getElementById('stand-butt').style.pointerEvents = "all";
+      } else if (this.tutorialPage === 5) {
+        document.getElementById('stand-butt').style.pointerEvents = "none";
+        document.getElementById('tut-next-butt').style.display = "block";
+      } else if (this.tutorialPage === 7) {
+        document.getElementById('tut-next-butt').style.display = "none";
+        document.getElementById('double-butt').style.pointerEvents = "all";
+      } else if (this.tutorialPage === 8) {
+        document.getElementById('tut-next-butt').style.display = "block";
+        document.getElementById('double-butt').style.pointerEvents = "none";
+      } else if (this.tutorialPage >= this.tutorialPagesA.length) {
+        document.getElementById('tutorial-contain').style.display = "none";
+        document.getElementById('back-butt').style.display = "block";
+        document.getElementById('help-butt').style.pointerEvents = "all";
+        document.getElementById('hit-butt').style.pointerEvents = "all";
+        document.getElementById('double-butt').style.pointerEvents = "all";
+        document.getElementById('stand-butt').style.pointerEvents = "all";
+        this.onboarded = true;
+      }
+    } else {
+      this.appearTutorial(this.tutorialPagesB[this.tutorialPage]);
+
+      if (this.tutorialPage === 3) {
+        document.getElementById('tut-next-butt').style.display = "none";
+        document.getElementById('hit-butt').style.pointerEvents = "all";
+      } else if (this.tutorialPage === 4) {
+        document.getElementById('hit-butt').style.pointerEvents = "none";
+        document.getElementById('stand-butt').style.pointerEvents = "all";
+      } else if (this.tutorialPage === 5) {
+        document.getElementById('stand-butt').style.pointerEvents = "none";
+        document.getElementById('tut-next-butt').style.display = "block";
+      } else if (this.tutorialPage === 6) {
+        document.getElementById('hit-butt').style.pointerEvents = "all";
+        document.getElementById('double-butt').style.pointerEvents = "all";
+        document.getElementById('stand-butt').style.pointerEvents = "all";
+        document.getElementById('tut-next-butt').style.display = "none";
+      } else if (this.tutorialPage === 7) {
+        if (this.player.drawing) {
+          // HIT
+          document.getElementById('hit-butt').style.pointerEvents = "none";
+          document.getElementById('double-butt').style.pointerEvents = "none";
+        } else {
+          // STAND OR DOUBLE
+          document.getElementById('hit-butt').style.pointerEvents = "none";
+          document.getElementById('double-butt').style.pointerEvents = "none";
+          document.getElementById('stand-butt').style.pointerEvents = "none";
+        }
+      } else if (this.tutorialPage === 8) {
+        document.getElementById('hit-butt').style.pointerEvents = "none";
+        document.getElementById('double-butt').style.pointerEvents = "none";
+        document.getElementById('stand-butt').style.pointerEvents = "none";
+        document.getElementById('tut-next-butt').style.display = "block";
+      } else if (this.tutorialPage === 10) {
+        document.getElementById('help-butt').style.backgroundColor = "#1c893b";
+        document.getElementById('help-butt').style.borderColor = "black";
+        document.getElementById('help-butt').style.color = "black";
+      } else if (this.tutorialPage >= this.tutorialPagesB.length) {
+        document.getElementById('tutorial-contain').style.display = "none";
+        document.getElementById('back-butt').style.display = "block";
+        document.getElementById('help-butt').style.pointerEvents = "all";
+        document.getElementById('hit-butt').style.pointerEvents = "all";
+        document.getElementById('double-butt').style.pointerEvents = "all";
+        document.getElementById('stand-butt').style.pointerEvents = "all";
+        this.onboarded = true;
+      }
+    }
+
+    this.tutorialPage += 1;
   }
 
   toggleInventory () {
@@ -505,7 +703,9 @@ class Blackjack {
       localStorage.setItem('dailyEarnings', String(this.playerDailyEarnings));
       localStorage.setItem('blackjack', JSON.stringify({
           "multiplier": this.playerBaseMult,
-          "strangerInteraction1": this.strangerInteraction1
+          "strangerInteraction1": this.strangerInteraction1,
+          "abTutorialTester": this.abTutorialTester,
+          "onboarded": this.onboarded
       }));
       localStorage.setItem('suspicion', String(this.suspicion));
       localStorage.setItem('items', JSON.stringify(this.items));
@@ -518,7 +718,17 @@ class Blackjack {
     switch (move) {
       case 'hit':
         if (this.peekedCard.getSuit() === "NULL") {
-          this.earn(this.player.draw());
+          if (!this.onboarded) {
+            if (this.tutorialPage === 4) {
+              this.earn(this.player.drawSpecific(new Card("Hearts", 7)));
+              this.progressTutorial();
+            } else if (this.tutorialPage === 7) {
+              this.earn(this.player.drawSpecific(new Card("Clubs", 3)));
+              this.progressTutorial();
+            }
+          } else {
+            this.earn(this.player.draw());
+          }
         } else {
           this.earn(this.player.drawSpecific(this.peekedCard));
           this.peekedCard = new Card("NULL", 0);
@@ -526,12 +736,34 @@ class Blackjack {
 
         break;
       case 'stand':
+        if (!this.onboarded) {
+          if (this.tutorialPage === 5) {
+            this.progressTutorial();
+          } else if (this.tutorialPage === 7) {
+            this.progressTutorial();
+            this.progressTutorial();
+          } else if (this.tutorialPage === 8) {
+            this.progressTutorial();
+          }
+        }
+
         this.player.drawing = false;
         break;
       case 'double':
         this.player.doubling = true;
         if (this.peekedCard.getSuit() === "NULL") {
-          this.earn(this.player.draw());
+          if (!this.onboarded) {
+            if (this.tutorialPage === 8) {
+              this.earn(this.player.drawSpecific(new Card("Diamonds", 2)));
+              this.progressTutorial();
+            } else if (this.tutorialPage === 7) {
+              this.earn(this.player.drawSpecific(new Card("Clubs", 2)));
+              this.progressTutorial();
+              this.progressTutorial();
+            }
+          } else {
+            this.earn(this.player.draw());
+          }
         } else {
           this.earn(this.player.drawSpecific(this.peekedCard));
           this.peekedCard = new Card("NULL", 0); // Sanity reset (technically redundant)
@@ -560,14 +792,19 @@ class Blackjack {
 
   // Determines the next choice for house and executes it
   // Return: checkBust() result - i.e. true if house busts
-  async houseMove() {
-    // 'hit' while below 17 and losing; stand otherwise
-    if (this.house.sum < 17 && this.house.sum < this.player.sum) {
-      this.house.draw();
-    } else if (this.house.sum < 16 && this.house.sum === this.player.sum) {
-      this.house.draw();
-    } else {
+  houseMove() {
+    if (!this.onboarded) {
+      this.house.drawSpecific(new Card("Spades", 1));
       this.house.drawing = false;
+    } else {
+      // 'hit' while below 17 and losing; stand otherwise
+      if (this.house.sum < 17 && this.house.sum < this.player.sum) {
+        this.house.draw();
+      } else if (this.house.sum < 16 && this.house.sum === this.player.sum) {
+        this.house.draw();
+      } else {
+        this.house.drawing = false;
+      }
     }
 
     return this.house.checkBust();

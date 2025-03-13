@@ -35,7 +35,7 @@
   <div class="game-container-blackjack" id="gc-blackjack">
     <!-- top bar -->
     <div class="hud-header">
-      <button class="back-button" onclick="location.href='mainMenu.html'">Back</button>
+      <button class="back-button" id="back-butt" onclick="location.href='mainMenu.html'">Back</button>
       
     </div>
 
@@ -52,10 +52,10 @@
       <div class="blackjack-board">
 
         <div class="button-panel">
-          <button class="blackjack-button" onclick="location.href='blackjackHelp.html'">Help</button>
-          <button class="blackjack-button" onclick="game.playerMove('hit')">Hit</button>
-          <button class="blackjack-button" onclick="game.playerMove('double')">Double</button>
-          <button class="blackjack-button" onclick="game.playerMove('stand')">Stand</button>
+          <button class="blackjack-button" id="help-butt" onclick="location.href='blackjackHelp.html'">Help</button>
+          <button class="blackjack-button" id="hit-butt" onclick="game.playerMove('hit')">Hit</button>
+          <button class="blackjack-button" id="double-butt" onclick="game.playerMove('double')">Double</button>
+          <button class="blackjack-button" id="stand-butt" onclick="game.playerMove('stand')">Stand</button>
         </div>
 
         <div class="house-hand" id="h-hand"></div>
@@ -65,6 +65,12 @@
         <div class="round-result" id="r-result"></div>
 
       </div>
+    </div>
+
+    <!-- Tutorial stuff -->
+    <div class="tutorial-container" id="tutorial-contain" style="display: none">
+      <img width="1000" src="" class="tutorial-overlay" id="tutorial-pic">
+      <button class="tutorial-next-button" onclick="game.progressTutorial()" id="tut-next-butt">Next</button>
     </div>
 
     <!-- The Modal -->
