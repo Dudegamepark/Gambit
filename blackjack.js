@@ -166,6 +166,10 @@ class Blackjack {
       this.strangerInteraction1 = false;
       this.onboarded = false;
       this.abTutorialTester = Math.floor(Math.random() * 2) + 1;
+      dataLayer.push({
+        event: 'abTutorialTester',
+        tutorial_data: this.abTutorialTester
+      });
     }
 
     // Stranger interaction 1 happens after 5 wins
