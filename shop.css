@@ -93,7 +93,15 @@ select {
 .item-container {
     width: 100%; /* or any custom size */
     height: 100%; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.item-container img{
     object-fit: contain;
+    max-height: 400px;
 }
 
 .storetabs .tab {
