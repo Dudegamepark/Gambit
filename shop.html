@@ -33,7 +33,7 @@
                     <div class="popup" id="card-popup">
                         <div class="overlay"></div>
                         <div class="content" style="background:#000000; -webkit-text-fill-color: #9b0905">
-                            <h1>Ace Up Your Sleeve $50</h1>
+                            <h1>Ace Up Your Sleeve</h1>
                             <p>Replace any card in your hand at any time in any game with an ace
                                 <br> use of ace up your sleeve x 1: +5 suspicion
                                 <br> use of ace up your sleeve x 2: +5 suspicion
@@ -44,7 +44,18 @@
                             <button class="purchase-button" id="aceBuy" onclick="purchaseCard()"></button>
                         </div>
                     </div>
+                    <div class="popup" id="uno-popup">
+                        <div class="overlay"></div>
+                        <div class="content" style="background:#000000; -webkit-text-fill-color: #9b0905">
+                            <h1>Uno Reverse</h1>
+                            <p>Switch your hand with the dealer's instead!
+                            </p>
+                            <button class="close-button" onclick="closePopup()">Close</button>
+                            <button class="purchase-button" id="unoBuy" onclick="purchaseUno()">Purchase: $200</button>
+                        </div>
+                    </div>
                     <img src="Assets/Cards/Items/aceUpYourSleeve.png" id="cardpowerup" style="height:100%">
+                    <img src="Assets/Cards/Items/unoReverse.png" id="unopowerup" style="height:100%">
                 </div>
             </div>
             <input type="radio" id="disguisetab" name="storetabs" checked="checked">
@@ -61,23 +72,6 @@
                         </div>
                     </div>
                     <img src="Assets/Cards/Items/tearAwayTux.png" id="tuxpowerup" style="height:100%">
-                </div>
-            </div>
-            <input type="radio" id="dicetab" name="storetabs" checked="checked">
-            <label for="dicetab" style="color:#000000; background:#e1e1e1; border-color: black">dices</label>
-            <div class="tab" style="background:#e1e1e1; border-color: black">
-                <div class="item-container">
-                    <div class="popup" id="dice-popup">
-                        <div class="overlay"></div>
-                        <div class="content" style="background:#e1e1e1; -webkit-text-fill-color: black">
-                            <h1>Weighted Die: $50</h1>
-                            <p>Choose the outcome of any die at any time.
-                                <br>Con: +30 suspicion when used</p>
-                            <button class="close-button" onclick="closePopup()">Close</button>
-                            <button class="purchase-button" id="weightBuy" onclick="purchaseDice()"></button>
-                        </div>
-                    </div>
-                    <img src="Assets/Cards/Items/weightedDie.png" id="dicepowerup" style="height:100%">
                 </div>
             </div>
             <input type="radio" id="upgradtab" name="storetabs" checked="checked">

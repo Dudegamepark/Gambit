@@ -12,12 +12,6 @@ function initialize() {
         "type": "permanent",
         "cost": 600
       },
-      'weightedDie': {
-        "description": "Choose the outcome of any die at any time.",
-        "quantity": 0,
-        "type": "permanent",
-        "cost": 50
-      },
       'tearAwayTux': {
         "description": "Resets Suspicion meter to 50% the first time it rises above 100% and is consumed in the process",
         "quantity": 0,
@@ -29,6 +23,42 @@ function initialize() {
         "quantity": 0,
         "type": "consumable",
         "cost": 50
+      },
+      'unoReverse': {
+        "description": "Switch your hand with the dealer's instead!",
+        "quantity": 0,
+        "type": "consumable",
+        "cost": 200
+      },
+      'CheeseHatCard': {
+        "description": "Cheese disguise",
+        "quantity": 0,
+        "type": "disguise",
+        "cost": 0
+      },
+      'futureSight': {
+        "description": "See what your next card will be!",
+        "quantity": 0,
+        "type": "consumable",
+        "cost": 250
+      },
+      'jackBlack': {
+        "description": "you're literally him!!!",
+        "quantity": 0,
+        "type": "disguise",
+        "cost": 0
+      },
+      'morph': {
+        "description": "Turns an Ace into a 10/face card",
+        "quantity": 0,
+        "type": "consumable",
+        "cost": 125
+      },
+      'PurpleChipCard': {
+        "description": "Gives you 1000 dollars",
+        "quantity": 0,
+        "type": "consumable",
+        "cost": 1000
       },
     }
     
@@ -59,12 +89,11 @@ function initialize() {
 
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     document.getElementById('aceBuy').innerHTML = `Purchase: $${50 + 2 * (30 - days)}`;
-    document.getElementById('weightBuy').innerHTML = `Purchase: $${50 + 2 * (30 - days)}`;
 
     const lowCardImage = document.getElementById('lcpowerup');
-    const weightDieImage = document.getElementById('dicepowerup');
     const tuxImage = document.getElementById('tuxpowerup');
     const cardImage = document.getElementById('cardpowerup');
+    const unoImage = document.getElementById('unopowerup');
 
     // Has the player already purchased the item?
     if (this.items['aceUpYourSleeve'].quantity >= 4) {
@@ -75,10 +104,6 @@ function initialize() {
       document.getElementById('tuxpowerup').style.display = 'none';
     }
 
-    if (this.items['weightedDie'].quantity >= 4) {
-      document.getElementById('dicepowerup').style.display = 'none';
-    }
-
     if (this.items['lowCard'].quantity > 0) {
       document.getElementById('lcpowerup').style.display = 'none';
     }
@@ -87,24 +112,20 @@ function initialize() {
     if (lowCardImage) {
         lowCardImage.addEventListener('click', openPopup);
     }
-    if (weightDieImage) {
-      weightDieImage.addEventListener('click', openPopup);
-    }
     if (tuxImage) {
       tuxImage.addEventListener('click', openPopup);
     }
     if (cardImage) {
       cardImage.addEventListener('click', openPopup);
     }
+    if (unoImage) {
+      unoImage.addEventListener('click', openPopup2);
+    }
 }
   
 
 function openPopup() {
     popup = document.getElementById('upgrade-popup');
-    if (popup) {
-        popup.style.display = 'flex';
-    }
-    popup = document.getElementById('dice-popup');
     if (popup) {
         popup.style.display = 'flex';
     }
@@ -118,12 +139,15 @@ function openPopup() {
     }
 }
 
+function openPopup2() {
+  popup = document.getElementById('uno-popup');
+  if (popup) {
+      popup.style.display = 'flex';
+  }
+}
+
 function closePopup() {
   popup = document.getElementById('upgrade-popup');
-  if (popup) {
-      popup.style.display = 'none';
-  }
-  popup = document.getElementById('dice-popup');
   if (popup) {
       popup.style.display = 'none';
   }
@@ -132,6 +156,10 @@ function closePopup() {
       popup.style.display = 'none';
   }
   popup = document.getElementById('card-popup');
+  if (popup) {
+      popup.style.display = 'none';
+  }
+  popup = document.getElementById('uno-popup');
   if (popup) {
       popup.style.display = 'none';
   }
@@ -163,6 +191,26 @@ function purchaseCard() {
   }
 }
 
+// Purchasing from Card Powerup
+function purchaseUno() {
+  purchase = document.getElementById('uno-popup');
+  let price = 200;
+  if (purchase && this.totalWallet >= price) {
+    item = document.getElementById('unopowerup');
+    item.style.display = 'none';
+    this.totalWallet -= price;
+    this.totalSpent += price;
+    this.items['unoReverse'].quantity += 1;
+    document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
+    localStorage.setItem('items', JSON.stringify(this.items));
+      localStorage.setItem('spentMoney', this.totalSpent);
+      dataLayer.push({
+        event: 'uno_purchase',
+      });
+    closePopup();
+  }
+}
+
 // Purchasing from Disguise Powerup
 function purchaseTux() {
   purchase = document.getElementById('tux-popup');
@@ -179,30 +227,6 @@ function purchaseTux() {
       dataLayer.push({
         event: 'tearAway_purchase',
       });
-    closePopup();
-  }
-}
-
-// Purchasing from Dice Powerup
-function purchaseDice() {
-  let day = 30;
-  if (localStorage && localStorage.getItem('day')) {
-      day = localStorage.getItem('day');
-  }
-  let price = 50 + 2 * (30 - day);
-  purchase = document.getElementById('dice-popup');
-  if (purchase && this.totalWallet >= price) {
-    item = document.getElementById('dicepowerup');
-    item.style.display = 'none';
-    this.totalWallet -= price;
-    this.totalSpent += price;
-    this.items['weightedDie'].quantity += 1;
-    document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
-    localStorage.setItem('items', JSON.stringify(this.items));
-    localStorage.setItem('spentMoney', this.totalSpent);
-    dataLayer.push({
-      event: 'weightedDie_purchase',
-    });
     closePopup();
   }
 }
