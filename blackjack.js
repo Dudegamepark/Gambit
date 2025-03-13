@@ -35,6 +35,10 @@ class Card {
       return this.rank.toString();
     }
   }
+
+  toString() {
+    return `${this.getRank()} of ${this.getSuit()}`;
+  }
 }
 
 // Deck class; has all 52 unique cards
@@ -76,6 +80,9 @@ class Deck {
 // Blackjack game-running class; has 2 decks and 2 hands
 class Blackjack {
   constructor() {
+    // Used for Future Sight
+    this.peekedCard = new Card('NULL', 0);
+
     // House entity
     this.house = new BlackjackPlayer();
 
@@ -131,6 +138,8 @@ class Blackjack {
   // To be called after every round of 21
   // Also call this to start the game
   resetRound() {
+    this.peekedCard = new Card("NULL", 0);
+
     this.house.reset();
     this.player.reset();
 
@@ -404,7 +413,6 @@ class Blackjack {
       this.items[itemName].quantity += 1;
 
       this.displayStats(false);
-      this.updateLocalState();
     } else if (itemName === "unoReverse") {
       // Switch all BlackjackPlayer fields except for the deck
       const playerPrevHand = this.player.hand;
@@ -455,7 +463,21 @@ class Blackjack {
           document.getElementById('r-result').innerHTML = '';
         }, 2000);
       }
+    } else if (itemName === "PurpleChipCard") {
+      this.playerTotalEarnings += 1000;
+      this.items[itemName].quantity -= 1;
+
+      this.displayStats(true);
+    } else if (itemName === "futureSight") {
+      if (this.peekedCard.getSuit() === "NULL") {
+        this.peekedCard = this.player.peek();
+
+        document.getElementById('r-result').innerHTML = `Future Sight: The next card is [${this.peekedCard.toString()}]`;
+      }
     }
+    
+    // Always update because quantity will be updated most of the time
+    this.updateLocalState();
 
     // Check if suspicion was surpassed
     if (this.checkSus()) {
@@ -486,6 +508,7 @@ class Blackjack {
           "strangerInteraction1": this.strangerInteraction1
       }));
       localStorage.setItem('suspicion', String(this.suspicion));
+      localStorage.setItem('items', JSON.stringify(this.items));
     }
   }
 
@@ -494,14 +517,25 @@ class Blackjack {
   playerMove(move) {
     switch (move) {
       case 'hit':
-        this.earn(this.player.draw());
+        if (this.peekedCard.getSuit() === "NULL") {
+          this.earn(this.player.draw());
+        } else {
+          this.earn(this.player.drawSpecific(this.peekedCard));
+          this.peekedCard = new Card("NULL", 0);
+        }
+
         break;
       case 'stand':
         this.player.drawing = false;
         break;
       case 'double':
         this.player.doubling = true;
-        this.earn(this.player.draw())
+        if (this.peekedCard.getSuit() === "NULL") {
+          this.earn(this.player.draw());
+        } else {
+          this.earn(this.player.drawSpecific(this.peekedCard));
+          this.peekedCard = new Card("NULL", 0); // Sanity reset (technically redundant)
+        }
         this.player.drawing = false;
         break;
       default:
@@ -618,6 +652,14 @@ class BlackjackPlayer {
 
     // Add to hand
     this.hand.push(drawnCard);
+
+    // Return card for earning computation
+    return drawnCard;
+  }
+
+  peek() {
+    // Pick random available card
+    const drawnCard = this.deck.draw();
 
     // Return card for earning computation
     return drawnCard;
