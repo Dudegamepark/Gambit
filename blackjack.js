@@ -161,6 +161,10 @@ class Blackjack {
       this.strangerInteraction1 = stats.strangerInteraction1;
       this.onboarded = stats.onboarded;
       this.abTutorialTester = stats.abTutorialTester;
+      dataLayer.push({
+        event: 'abTutorialTester',
+        tutorial_data: this.abTutorialTester
+      });
     } else {
       this.playerBaseMult = 1.0;
       this.strangerInteraction1 = false;
