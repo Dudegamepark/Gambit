@@ -282,44 +282,44 @@ function purchaseMorph() {
   }
 }
 
-// Purchasing from Disguise Powerup
-function purchaseTux() {
-  purchase = document.getElementById('tux-popup');
-  let price = 3000;
-  if (purchase && this.totalWallet >= price) {
-    item = document.getElementById('tuxpowerup');
-    item.style.display = 'none';
-    this.totalWallet -= price;
-    this.totalSpent += price;
-    this.items['tearAwayTux'].quantity = 1;
-    document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
-    localStorage.setItem('items', JSON.stringify(this.items));
-      localStorage.setItem('spentMoney', this.totalSpent);
-      dataLayer.push({
-        event: 'tearAway_purchase',
-      });
-    closePopup();
-  }
-}
+// // Purchasing from Disguise Powerup
+// function purchaseTux() {
+//   purchase = document.getElementById('tux-popup');
+//   let price = 3000;
+//   if (purchase && this.totalWallet >= price) {
+//     item = document.getElementById('tuxpowerup');
+//     item.style.display = 'none';
+//     this.totalWallet -= price;
+//     this.totalSpent += price;
+//     this.items['tearAwayTux'].quantity = 1;
+//     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
+//     localStorage.setItem('items', JSON.stringify(this.items));
+//       localStorage.setItem('spentMoney', this.totalSpent);
+//       dataLayer.push({
+//         event: 'tearAway_purchase',
+//       });
+//     closePopup();
+//   }
+// }
 
-// Purchasing from Upgrade Powerup
-function purchaseUpgrade() {
-  purchase = document.getElementById('upgrade-popup'); 
-  let price = 600;
-  if (purchase && this.totalWallet >= price) {
-    document.getElementById('lcpowerup').style.display = 'none';
-    this.totalWallet -= price;
-    this.totalSpent += price;
-    this.items['lowCard'].quantity = 1;
-    document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
-    localStorage.setItem('items', JSON.stringify(this.items));
-    localStorage.setItem('spentMoney', this.totalSpent);
-    dataLayer.push({
-      event: 'lowCard_purchase',
-    });
-    closePopup();
-  }
-}
+// // Purchasing from Upgrade Powerup
+// function purchaseUpgrade() {
+//   purchase = document.getElementById('upgrade-popup'); 
+//   let price = 600;
+//   if (purchase && this.totalWallet >= price) {
+//     document.getElementById('lcpowerup').style.display = 'none';
+//     this.totalWallet -= price;
+//     this.totalSpent += price;
+//     this.items['lowCard'].quantity = 1;
+//     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
+//     localStorage.setItem('items', JSON.stringify(this.items));
+//     localStorage.setItem('spentMoney', this.totalSpent);
+//     dataLayer.push({
+//       event: 'lowCard_purchase',
+//     });
+//     closePopup();
+//   }
+// }
 
 // Update wallet
 function updateWallet() {
