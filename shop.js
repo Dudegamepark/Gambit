@@ -94,11 +94,10 @@ function initialize() {
     const tuxImage = document.getElementById('tuxpowerup');
     const cardImage = document.getElementById('cardpowerup');
     const unoImage = document.getElementById('unopowerup');
+    const futureImage = document.getElementById('futurepowerup');
+    const morphImage = document.getElementById('morphpowerup');
 
     // Has the player already purchased the item?
-    if (this.items['aceUpYourSleeve'].quantity >= 4) {
-      document.getElementById('cardpowerup').style.display = 'none';
-    }
 
     if (this.items['tearAwayTux'].quantity > 0) {
       document.getElementById('tuxpowerup').style.display = 'none';
@@ -120,6 +119,12 @@ function initialize() {
     }
     if (unoImage) {
       unoImage.addEventListener('click', openPopup2);
+    }
+    if (futureImage) {
+      futureImage.addEventListener('click', openPopup3);
+    }
+    if (morphImage) {
+      morphImage.addEventListener('click', openPopup4);
     }
 }
   
@@ -146,6 +151,20 @@ function openPopup2() {
   }
 }
 
+function openPopup3() {
+  popup = document.getElementById('future-popup');
+  if (popup) {
+      popup.style.display = 'flex';
+  }
+}
+
+function openPopup4() {
+  popup = document.getElementById('morph-popup');
+  if (popup) {
+      popup.style.display = 'flex';
+  }
+}
+
 function closePopup() {
   popup = document.getElementById('upgrade-popup');
   if (popup) {
@@ -163,6 +182,14 @@ function closePopup() {
   if (popup) {
       popup.style.display = 'none';
   }
+  popup = document.getElementById('future-popup');
+  if (popup) {
+      popup.style.display = 'none';
+  }
+  popup = document.getElementById('morph-popup');
+  if (popup) {
+      popup.style.display = 'none';
+  }
 }
 
 initialize();
@@ -176,11 +203,12 @@ function purchaseCard() {
   let price = 50 + 2 * (30 - day);
   purchase = document.getElementById('card-popup');
   if (purchase && this.totalWallet >= price) {
-    item = document.getElementById('cardpowerup');
-    item.style.display = 'none';
     this.totalWallet -= price;
     this.totalSpent += price;
     this.items['aceUpYourSleeve'].quantity += 1;
+    if (this.items['aceUpYourSleeve'].quantity >= 4) {
+      document.getElementById('cardpowerup').style.display = 'none';
+    }
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
     localStorage.setItem('spentMoney', this.totalSpent);
@@ -196,16 +224,59 @@ function purchaseUno() {
   purchase = document.getElementById('uno-popup');
   let price = 200;
   if (purchase && this.totalWallet >= price) {
-    item = document.getElementById('unopowerup');
-    item.style.display = 'none';
     this.totalWallet -= price;
     this.totalSpent += price;
     this.items['unoReverse'].quantity += 1;
+    if (this.items['unoReverse'].quantity >= 4) {
+      document.getElementById('unopowerup').style.display = 'none';
+    }
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
       localStorage.setItem('spentMoney', this.totalSpent);
       dataLayer.push({
         event: 'uno_purchase',
+      });
+    closePopup();
+  }
+}
+
+// Purchasing from Card Powerup
+function purchaseFuture() {
+  purchase = document.getElementById('future-popup');
+  let price = 250;
+  if (purchase && this.totalWallet >= price) {
+    this.totalWallet -= price;
+    this.totalSpent += price;
+    this.items['futureSight'].quantity += 1;
+    if (this.items['futureSight'].quantity >= 4) {
+      document.getElementById('futurepowerup').style.display = 'none';
+    }
+    document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
+    localStorage.setItem('items', JSON.stringify(this.items));
+      localStorage.setItem('spentMoney', this.totalSpent);
+      dataLayer.push({
+        event: 'future_purchase',
+      });
+    closePopup();
+  }
+}
+
+// Purchasing from Card Powerup
+function purchaseMorph() {
+  purchase = document.getElementById('morph-popup');
+  let price = 125;
+  if (purchase && this.totalWallet >= price) {
+    this.totalWallet -= price;
+    this.totalSpent += price;
+    this.items['morph'].quantity += 1;
+    if (this.items['morph'].quantity >= 4) {
+      document.getElementById('morphpowerup').style.display = 'none';
+    }
+    document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
+    localStorage.setItem('items', JSON.stringify(this.items));
+      localStorage.setItem('spentMoney', this.totalSpent);
+      dataLayer.push({
+        event: 'morph_purchase',
       });
     closePopup();
   }

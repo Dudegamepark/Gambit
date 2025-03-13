@@ -54,8 +54,30 @@
                             <button class="purchase-button" id="unoBuy" onclick="purchaseUno()">Purchase: $200</button>
                         </div>
                     </div>
+                    <div class="popup" id="future-popup">
+                        <div class="overlay"></div>
+                        <div class="content" style="background:#000000; -webkit-text-fill-color: #9b0905">
+                            <h1>Future Sight</h1>
+                            <p>See what your next card will be!
+                            </p>
+                            <button class="close-button" onclick="closePopup()">Close</button>
+                            <button class="purchase-button" id="futureBuy" onclick="purchaseFuture()">Purchase: $250</button>
+                        </div>
+                    </div>
+                    <div class="popup" id="morph-popup">
+                        <div class="overlay"></div>
+                        <div class="content" style="background:#000000; -webkit-text-fill-color: #9b0905">
+                            <h1>Morph</h1>
+                            <p>Turn an Ace into a 10/face card!
+                            </p>
+                            <button class="close-button" onclick="closePopup()">Close</button>
+                            <button class="purchase-button" id="morphBuy" onclick="purchaseMorph()">Purchase: $125</button>
+                        </div>
+                    </div>
                     <img src="Assets/Cards/Items/aceUpYourSleeve.png" id="cardpowerup" style="height:100%">
                     <img src="Assets/Cards/Items/unoReverse.png" id="unopowerup" style="height:100%">
+                    <img src="Assets/Cards/Items/futureSight.png" id="futurepowerup" style="height:100%">
+                    <img src="Assets/Cards/Items/morph.png" id="morphpowerup" style="height:100%">
                 </div>
             </div>
             <input type="radio" id="disguisetab" name="storetabs" checked="checked">
