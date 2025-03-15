@@ -161,11 +161,33 @@ class Blackjack {
       this.strangerInteraction1 = stats.strangerInteraction1;
       this.onboarded = stats.onboarded;
       this.abTutorialTester = stats.abTutorialTester;
+      if (this.abTutorialTester == 1) {
+        dataLayer.push({
+          event: 'tutorialOne',
+        });
+      } else {
+        dataLayer.push({
+          event: 'tutorialTwo',
+        });
+      }
+      dataLayer.push({
+        event: 'abTutorialTester',
+        tutorial_data: this.abTutorialTester
+      });
     } else {
       this.playerBaseMult = 1.0;
       this.strangerInteraction1 = false;
       this.onboarded = false;
       this.abTutorialTester = Math.floor(Math.random() * 2) + 1;
+      if (this.abTutorialTester == 1) {
+        dataLayer.push({
+          event: 'tutorialOne',
+        });
+      } else {
+        dataLayer.push({
+          event: 'tutorialTwo',
+        });
+      }
       dataLayer.push({
         event: 'abTutorialTester',
         tutorial_data: this.abTutorialTester
@@ -480,6 +502,9 @@ class Blackjack {
         document.getElementById('hit-butt').style.pointerEvents = "all";
         document.getElementById('double-butt').style.pointerEvents = "all";
         document.getElementById('stand-butt').style.pointerEvents = "all";
+        dataLayer.push({
+          event: 'tutorialOneDone',
+        });
         this.onboarded = true;
         this.updateLocalState();
       }
@@ -527,6 +552,9 @@ class Blackjack {
         document.getElementById('hit-butt').style.pointerEvents = "all";
         document.getElementById('double-butt').style.pointerEvents = "all";
         document.getElementById('stand-butt').style.pointerEvents = "all";
+        dataLayer.push({
+          event: 'tutorialTwoDone',
+        });
         this.onboarded = true;
         this.updateLocalState();
       }
