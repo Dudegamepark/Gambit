@@ -40,7 +40,7 @@
                                 <br> use of ace up your sleeve x 3: +5 suspicion
                                 <br> use of ace up your sleeve x 4: +5 suspicion
                             </p>
-                            <button class="close-button" onclick="closePopup()">Close</button>
+                            <button class="close-button" id="closeCard" onclick="closePopup(this.id)">Close</button>
                             <button class="purchase-button" id="aceBuy" onclick="purchaseCard()"></button>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                             <h1>Uno Reverse</h1>
                             <p>Switch your hand with the dealer's instead!
                             </p>
-                            <button class="close-button" onclick="closePopup()">Close</button>
+                            <button class="close-button" id="closeUno" onclick="closePopup(this.id)">Close</button>
                             <button class="purchase-button" id="unoBuy" onclick="purchaseUno()">Purchase: $200</button>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                             <h1>Future Sight</h1>
                             <p>See what your next card will be!
                             </p>
-                            <button class="close-button" onclick="closePopup()">Close</button>
+                            <button class="close-button" id="closeFuture" onclick="closePopup(this.id)">Close</button>
                             <button class="purchase-button" id="futureBuy" onclick="purchaseFuture()">Purchase: $250</button>
                         </div>
                     </div>
@@ -70,14 +70,14 @@
                             <h1>Morph</h1>
                             <p>Turn an Ace into a 10/face card!
                             </p>
-                            <button class="close-button" onclick="closePopup()">Close</button>
+                            <button class="close-button" id="closeMorph" onclick="closePopup(this.id)">Close</button>
                             <button class="purchase-button" id="morphBuy" onclick="purchaseMorph()">Purchase: $125</button>
                         </div>
                     </div>
-                    <img src="Assets/Cards/Items/aceUpYourSleeve.png" id="cardpowerup">
-                    <img src="Assets/Cards/Items/unoReverse.png" id="unopowerup">
-                    <img src="Assets/Cards/Items/futureSight.png" id="futurepowerup">
-                    <img src="Assets/Cards/Items/morph.png" id="morphpowerup">
+                    <img src="Assets/Cards/Items/aceUpYourSleeve.png" id="cardpowerup" onclick="openPopup(this.id)">
+                    <img src="Assets/Cards/Items/unoReverse.png" id="unopowerup" onclick="openPopup(this.id)">
+                    <img src="Assets/Cards/Items/futureSight.png" id="futurepowerup" onclick="openPopup(this.id)">
+                    <img src="Assets/Cards/Items/morph.png" id="morphpowerup" onclick="openPopup(this.id)">
                 </div>
             </div>
             <input type="radio" id="disguisetab" name="storetabs" checked="checked">

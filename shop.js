@@ -84,111 +84,56 @@ function initialize() {
     }
 
     if (localStorage && localStorage.getItem('items')) {
-      this.items = JSON.parse(localStorage.getItem('items'));
-    }
+      if (JSON.parse(localStorage.getItem('items'))['lowCard']) {
+        this.items = JSON.parse(localStorage.getItem('items'));
+      }
+    } 
 
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     document.getElementById('aceBuy').innerHTML = `Purchase: $${50 + 2 * (30 - days)}`;
 
-    const lowCardImage = document.getElementById('lcpowerup');
-    const tuxImage = document.getElementById('tuxpowerup');
-    const cardImage = document.getElementById('cardpowerup');
-    const unoImage = document.getElementById('unopowerup');
-    const futureImage = document.getElementById('futurepowerup');
-    const morphImage = document.getElementById('morphpowerup');
-
-    // Has the player already purchased the item?
-
-    if (this.items['tearAwayTux'].quantity > 0) {
-      document.getElementById('tuxpowerup').style.display = 'none';
+    if (this.items['aceUpYourSleeve'].quantity >= 4) {
+      document.getElementById('cardpowerup').style.display = 'none';
     }
-
-    if (this.items['lowCard'].quantity > 0) {
-      document.getElementById('lcpowerup').style.display = 'none';
+    if (this.items['unoReverse'].quantity >= 4) {
+      document.getElementById('unopowerup').style.display = 'none';
     }
-
-    // Open popup when player clicks on item
-    if (lowCardImage) {
-        lowCardImage.addEventListener('click', openPopup);
+    if (this.items['futureSight'].quantity >= 4) {
+      document.getElementById('futurepowerup').style.display = 'none';
     }
-    if (tuxImage) {
-      tuxImage.addEventListener('click', openPopup);
-    }
-    if (cardImage) {
-      cardImage.addEventListener('click', openPopup);
-    }
-    if (unoImage) {
-      unoImage.addEventListener('click', openPopup2);
-    }
-    if (futureImage) {
-      futureImage.addEventListener('click', openPopup3);
-    }
-    if (morphImage) {
-      morphImage.addEventListener('click', openPopup4);
+    if (this.items['morph'].quantity >= 4) {
+      document.getElementById('morphpowerup').style.display = 'none';
     }
 }
   
 
-function openPopup() {
-    popup = document.getElementById('upgrade-popup');
-    if (popup) {
-        popup.style.display = 'flex';
+function openPopup(id) {
+    if (id == "cardpowerup") {
+      document.getElementById('card-popup').style.display = 'flex';
     }
-    popup = document.getElementById('tux-popup');
-    if (popup) {
-        popup.style.display = 'flex';
+    if (id == "unopowerup") {
+      document.getElementById('uno-popup').style.display = 'flex';
     }
-    popup = document.getElementById('card-popup');
-    if (popup) {
-        popup.style.display = 'flex';
+    if (id == "futurepowerup") {
+      document.getElementById('future-popup').style.display = 'flex';
+    }
+    if (id == "morphpowerup") {
+      document.getElementById('morph-popup').style.display = 'flex';
     }
 }
 
-function openPopup2() {
-  popup = document.getElementById('uno-popup');
-  if (popup) {
-      popup.style.display = 'flex';
+function closePopup(id) {
+  if (id == "closeCard") {
+    document.getElementById('card-popup').style.display = 'none';
   }
-}
-
-function openPopup3() {
-  popup = document.getElementById('future-popup');
-  if (popup) {
-      popup.style.display = 'flex';
+  if (id == "closeUno") {
+    document.getElementById('uno-popup').style.display = 'none';
   }
-}
-
-function openPopup4() {
-  popup = document.getElementById('morph-popup');
-  if (popup) {
-      popup.style.display = 'flex';
+  if (id == "closeFuture") {
+    document.getElementById('future-popup').style.display = 'none';
   }
-}
-
-function closePopup() {
-  popup = document.getElementById('upgrade-popup');
-  if (popup) {
-      popup.style.display = 'none';
-  }
-  popup = document.getElementById('tux-popup');
-  if (popup) {
-      popup.style.display = 'none';
-  }
-  popup = document.getElementById('card-popup');
-  if (popup) {
-      popup.style.display = 'none';
-  }
-  popup = document.getElementById('uno-popup');
-  if (popup) {
-      popup.style.display = 'none';
-  }
-  popup = document.getElementById('future-popup');
-  if (popup) {
-      popup.style.display = 'none';
-  }
-  popup = document.getElementById('morph-popup');
-  if (popup) {
-      popup.style.display = 'none';
+  if (id == "closeMorph") {
+    document.getElementById('morph-popup').style.display = 'none';
   }
 }
 
@@ -215,7 +160,7 @@ function purchaseCard() {
     dataLayer.push({
       event: 'AceUp_purchase',
     });
-    closePopup();
+    document.getElementById('card-popup').style.display = 'none';
   }
 }
 
@@ -232,11 +177,11 @@ function purchaseUno() {
     }
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
-      localStorage.setItem('spentMoney', this.totalSpent);
-      dataLayer.push({
-        event: 'uno_purchase',
-      });
-    closePopup();
+    localStorage.setItem('spentMoney', this.totalSpent);
+    dataLayer.push({
+      event: 'uno_purchase',
+    });
+    document.getElementById('uno-popup').style.display = 'none';
   }
 }
 
@@ -250,14 +195,15 @@ function purchaseFuture() {
     this.items['futureSight'].quantity += 1;
     if (this.items['futureSight'].quantity >= 4) {
       document.getElementById('futurepowerup').style.display = 'none';
+      closePopup();
     }
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
-      localStorage.setItem('spentMoney', this.totalSpent);
-      dataLayer.push({
-        event: 'future_purchase',
-      });
-    closePopup();
+    localStorage.setItem('spentMoney', this.totalSpent);
+    dataLayer.push({
+      event: 'future_purchase',
+    });
+    document.getElementById('future-popup').style.display = 'none';
   }
 }
 
@@ -274,11 +220,11 @@ function purchaseMorph() {
     }
     document.getElementById('money-won-box').innerHTML = `Wallet: $${this.totalWallet.toFixed(0)}`;
     localStorage.setItem('items', JSON.stringify(this.items));
-      localStorage.setItem('spentMoney', this.totalSpent);
-      dataLayer.push({
-        event: 'morph_purchase',
-      });
-    closePopup();
+    localStorage.setItem('spentMoney', this.totalSpent);
+    dataLayer.push({
+      event: 'morph_purchase',
+    });
+    document.getElementById('morph-popup').style.display = 'none';
   }
 }
 
